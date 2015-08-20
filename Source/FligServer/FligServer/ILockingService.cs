@@ -2,8 +2,8 @@
 {
     public interface ILockingService
     {
-        void CreateFile(string filename, string content);
-        bool CheckExists(string filename);
+        void CreateLock(string filename, string content);
+        bool DoesLockExist(string filename);
         bool RemoveLock(string filename);
     }
 }
