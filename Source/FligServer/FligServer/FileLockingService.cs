@@ -20,9 +20,7 @@ namespace FligServer
         public bool RemoveLock(string filename)
         {
             File.Delete(filename);
-            if (DoesLockExist(filename))
-                return false;
-            return true;
+            return !DoesLockExist(filename);
         }
     }
 }
