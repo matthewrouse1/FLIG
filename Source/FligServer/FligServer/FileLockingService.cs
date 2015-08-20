@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FligServer
 {
-    public class FileService : IFileService
+    public class FileLockingService : ILockingService
     {
         public void CreateFile(string filename, string content)
         {
@@ -20,7 +20,7 @@ namespace FligServer
         public bool RemoveLock(string filename)
         {
             File.Delete(filename);
-            if (File.Exists(filename))
+            if (CheckExists(filename))
                 return false;
             return true;
         }

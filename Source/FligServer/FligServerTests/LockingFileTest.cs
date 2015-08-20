@@ -16,13 +16,13 @@ namespace FligServerTests.WhenAFileIsLocked
         private LockingController lockingController;
         private IHttpActionResult result;
         private OkNegotiatedContentResult<string> content;
-        private IFileService fakeFileService;
+        private ILockingService _fakeLockingService;
 
         public GivenTheFilenameIsValid()
         {
             fakeFile = "aFakeFile.txt";
-            fakeFileService = new FakeFileService();
-            lockingController = new LockingController(fakeFileService);
+            _fakeLockingService = new FakeLockingService();
+            lockingController = new LockingController(_fakeLockingService);
             result = lockingController.Lock(fakeFile);
             content = Assert.IsType<OkNegotiatedContentResult<string>>(result);
         }
@@ -36,18 +36,18 @@ namespace FligServerTests.WhenAFileIsLocked
         [Fact]
         public void ThenTheLockingFileExistsAfterwards()
         {
-            Assert.True(fakeFileService.CheckExists(fakeFile));
+            Assert.True(_fakeLockingService.CheckExists(fakeFile));
         }
 
         [Fact]
         public void ThenTheFileCanBeUnlocked()
         {
             lockingController.Unlock(fakeFile);
-            Assert.False(fakeFileService.CheckExists(fakeFile));
+            Assert.False(_fakeLockingService.CheckExists(fakeFile));
         }
     }
 
-    public class FakeFileService : IFileService
+    public class FakeLockingService : ILockingService
     {
         private List<string> lockedFileList = new List<string>();
 

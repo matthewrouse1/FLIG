@@ -1,6 +1,6 @@
 ﻿namespace FligServer
 {
-    public interface IFileService
+    public interface ILockingService
     {
         void CreateFile(string filename, string content);
         bool CheckExists(string filename);

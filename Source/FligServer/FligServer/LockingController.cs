@@ -10,14 +10,14 @@ namespace FligServer
     [RoutePrefix("lockingcontroller")]
     public class LockingController : ApiController
     {
-        private IFileService fileService;
+        private ILockingService _lockingService;
 
-        public LockingController() : this(new FileService())
+        public LockingController() : this(new FileLockingService())
         { }
 
-        public LockingController(IFileService _fileService)
+        public LockingController(ILockingService lockingService)
         {
-            fileService = _fileService;
+            _lockingService = lockingService;
         }
 
         [Route("lock/{file}")]
