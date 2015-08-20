@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Assert = Xunit.Assert;
 
-namespace FligServerTests.WhenAFileIsLocked
+namespace FligServerTests.WhenAFileIsModified
 {
     public class GivenTheFilenameIsValid
     {
@@ -28,13 +28,13 @@ namespace FligServerTests.WhenAFileIsLocked
         }
 
         [Fact]
-        public void ThenALockedStatusMessageIsReturnedAndTheLockingFileIsCreated()
+        public void ThenALockedStatusMessageIsReturned()
         {
             Assert.True(content.Content.Contains(string.Format("Locked: {0}", fakeFile)));
         }
 
         [Fact]
-        public void ThenTheLockingFileExistsAfterwards()
+        public void ThenTheLockExistsAfterwards()
         {
             Assert.True(_fakeLockingService.CheckExists(fakeFile));
         }

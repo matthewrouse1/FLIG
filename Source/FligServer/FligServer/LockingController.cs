@@ -23,6 +23,7 @@ namespace FligServer
         [Route("lock/{file}")]
         public IHttpActionResult Lock(string file)
         {
+            _lockingService.CreateFile(file, "test");
             return Ok(string.Format("Locked: {0}", file));
         }
 
