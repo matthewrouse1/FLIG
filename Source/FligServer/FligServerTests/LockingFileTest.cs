@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Results;
@@ -37,6 +38,14 @@ namespace FligServerTests.WhenAFileIsModified
         public void ThenTheLockExistsAfterwards()
         {
             Assert.True(_fakeLockingService.CheckExists(fakeFile));
+        }
+
+        [Fact]
+        public void ThenTheSameFileCantBeLockedAgain()
+        {
+            var secondResult = new LockingController(_fakeLockingService).Lock(fakeFile);
+            var secondResponse = Assert.IsType<BadRequestErrorMessageResult>(secondResult);
+            Assert.Equal("The file is already locked", secondResponse.Message);
         }
 
         [Fact]
