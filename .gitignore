@@ -1,0 +1,87 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+obj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+Ankh.NoLoad
+*.vsmdi
+*.datasource 
+UpgradeLog*
+
+#MonoDevelop
+*.pidb
+*.userprefs
+
+#Tooling
+*.ncrunchsolution
+_ReSharper*/
+*.resharper
+TestResults/
+*.sass-cache
+
+#Project files
+[Bb]uild/
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*
+
+#NuGet
+Binaries/
+packages/
+
+#ncrunch
+*crunch*.local.xml
+_NCRUNCH__*
+
+# visual studio database projects
+*.dbmdl
+
+#Test files
+*.testsettings
+
+#Error log
+errors.txt
+SqlScripts/out/
+
+#Crystal Report Web Files
+*aspnet_client*
+*.metaproj
+*.tmp
+Full Build/
+
+#TestComplete
+*.tcLS
+Log/
+*.tcCFGExtender
+
+_NCrunch*
+.vagrant
