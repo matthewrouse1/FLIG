@@ -12,7 +12,7 @@ namespace FligServer
         [Route("lock/{file}")]
         public IHttpActionResult Get(string file)
         {
-            return Ok("Hello World");
+            return Ok(string.Format("Locked: {0}", file));
         }
     }
 }
