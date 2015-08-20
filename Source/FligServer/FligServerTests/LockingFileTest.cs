@@ -75,5 +75,10 @@ namespace FligServerTests.WhenAFileIsModified
             lockedFileList.Remove(filename);
             return DoesLockExist(filename);
         }
+
+        public List<LockObject> RetrieveLockInfo(string filename)
+        {
+            return new List<LockObject>() {new LockObject() {Username = "TestUser", LockedDateTime = DateTime.Now}};;
+        }
     }
 }

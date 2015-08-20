@@ -7,7 +7,7 @@ using Microsoft.SqlServer.Server;
 
 namespace FligServer
 {
-    [RoutePrefix("lockingcontroller")]
+    [RoutePrefix("flig")]
     public class LockingController : ApiController
     {
         private ILockingService _lockingService;
@@ -21,6 +21,7 @@ namespace FligServer
         }
 
         [Route("lock/{file}")]
+        [HttpGet]
         public IHttpActionResult Lock(string file)
         {
             if (_lockingService.DoesLockExist(file))
@@ -31,7 +32,19 @@ namespace FligServer
             return Ok(string.Format("Locked: {0}", file));
         }
 
+        [Route("check/{file}")]
+        [HttpGet]
+        public IHttpActionResult Check(string file)
+        {
+            if (_lockingService.DoesLockExist(file))
+            {
+                return Ok(_lockingService.RetrieveLockInfo(file));
+            }
+            return BadRequest("File isn't locked");
+        }
+
         [Route("unlock/{file}")]
+        [HttpGet]
         public IHttpActionResult Unlock(string file)
         {
             _lockingService.RemoveLock(file);
