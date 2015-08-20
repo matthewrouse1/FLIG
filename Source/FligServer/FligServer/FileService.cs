@@ -11,5 +11,18 @@ namespace FligServer
             array[0] = content;
             File.WriteAllLines(filename, array);
         }
+
+        public bool CheckExists(string filename)
+        {
+            return File.Exists(filename);
+        }
+
+        public bool RemoveLock(string filename)
+        {
+            File.Delete(filename);
+            if (File.Exists(filename))
+                return false;
+            return true;
+        }
     }
 }
