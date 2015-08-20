@@ -10,7 +10,7 @@ namespace FligServer
     public class LockingController : ApiController
     {
         [Route("lock/{file}")]
-        public IHttpActionResult Get(string file)
+        public IHttpActionResult Lock(string file)
         {
             return Ok(string.Format("Locked: {0}", file));
         }
