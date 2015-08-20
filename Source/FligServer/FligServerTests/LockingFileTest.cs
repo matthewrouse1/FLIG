@@ -17,19 +17,23 @@ namespace FligServerTests.WhenAFileIsLocked
         public GivenTheFilenameIsValid()
         {
             fakeFile = "aFakeFile.txt";
-            lockingController = new LockingController();
+            var fakeFileService = new FakeFileService();
+            lockingController = new LockingController(fakeFileService);
             result = lockingController.Lock(fakeFile);
             content = Assert.IsType<OkNegotiatedContentResult<string>>(result);
         }
 
         [Fact]
-        public void ThenALockedStatusMessageIsReturned()
+        public void ThenALockedStatusMessageIsReturnedAndTheLockingFileIsCreated()
         {
             Assert.True(content.Content.Contains(string.Format("Locked: {0}", fakeFile)));
         }
 
-        [Fact]
-        public void ThenALockingFileIsCreated()
+    }
+
+    public class FakeFileService : IFileService
+    {
+        public void CreateFile(string filename, string content)
         {
             
         }
