@@ -5,14 +5,14 @@ namespace FligServer
 {
     public class FileLockingService : ILockingService
     {
-        public void CreateFile(string filename, string content)
+        public void CreateLock(string filename, string content)
         {
             var array = new string[1];
             array[0] = content;
             File.WriteAllLines(filename, array);
         }
 
-        public bool CheckExists(string filename)
+        public bool DoesLockExist(string filename)
         {
             return File.Exists(filename);
         }
@@ -20,7 +20,7 @@ namespace FligServer
         public bool RemoveLock(string filename)
         {
             File.Delete(filename);
-            if (CheckExists(filename))
+            if (DoesLockExist(filename))
                 return false;
             return true;
         }

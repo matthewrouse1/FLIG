@@ -37,7 +37,7 @@ namespace FligServerTests.WhenAFileIsModified
         [Fact]
         public void ThenTheLockExistsAfterwards()
         {
-            Assert.True(_fakeLockingService.CheckExists(fakeFile));
+            Assert.True(_fakeLockingService.DoesLockExist(fakeFile));
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace FligServerTests.WhenAFileIsModified
         public void ThenTheFileCanBeUnlocked()
         {
             lockingController.Unlock(fakeFile);
-            Assert.False(_fakeLockingService.CheckExists(fakeFile));
+            Assert.False(_fakeLockingService.DoesLockExist(fakeFile));
         }
     }
 
@@ -60,12 +60,12 @@ namespace FligServerTests.WhenAFileIsModified
     {
         private List<string> lockedFileList = new List<string>();
 
-        public void CreateFile(string filename, string content)
+        public void CreateLock(string filename, string content)
         {
             lockedFileList.Add(filename);
         }
 
-        public bool CheckExists(string filename)
+        public bool DoesLockExist(string filename)
         {
             return lockedFileList.Exists(x => x == filename);
         }
@@ -73,7 +73,7 @@ namespace FligServerTests.WhenAFileIsModified
         public bool RemoveLock(string filename)
         {
             lockedFileList.Remove(filename);
-            return CheckExists(filename);
+            return DoesLockExist(filename);
         }
     }
 }

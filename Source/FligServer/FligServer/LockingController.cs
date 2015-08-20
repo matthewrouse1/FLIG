@@ -23,11 +23,11 @@ namespace FligServer
         [Route("lock/{file}")]
         public IHttpActionResult Lock(string file)
         {
-            if (_lockingService.CheckExists(file))
+            if (_lockingService.DoesLockExist(file))
             {
                 return BadRequest("The file is already locked");
             }
-            _lockingService.CreateFile(file, "test");
+            _lockingService.CreateLock(file, "test");
             return Ok(string.Format("Locked: {0}", file));
         }
 
