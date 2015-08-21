@@ -21,6 +21,18 @@ namespace FligServer
             _lockingService = lockingService;
         }
 
+        [Route("override/{user}/{file}")]
+        [HttpGet]
+        public IHttpActionResult Override(string user, string file)
+        {
+            _lockingService.CreateLockOverride(file, user);
+            var info = _lockingService.RetrieveLockInfo(file);
+            var response = string.Empty;
+            info.ForEach(
+                delegate(LockObject x) { response += string.Format("{0}:{1}\n", x.Username, x.LockedDateTime); });
+            return Ok(response);
+        }
+
         [Route("lock/{user}/{file}")]
         [HttpGet]
         public IHttpActionResult Lock(string user, string file)

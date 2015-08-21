@@ -7,6 +7,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Results;
 using FligServer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Win32;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -57,6 +58,14 @@ namespace FligServerTests.WhenAFileIsModified
             lockingController.Unlock(fakeFile, fakeUser);
             Assert.False(_fakeLockingService.DoesLockExist(fakeFile));
         }
+
+        [Fact]
+        public void ThenTheFileCanBeLockedAgainWithAnOverride()
+        {
+            var secondUser = "anotherUser";
+            lockingController.Override(secondUser, fakeFile);
+            Assert.True(_fakeLockingService.RetrieveLockInfo(fakeFile).Count(x => x.Username == secondUser) == 1);
+        }
     }
 
     public class FakeLockingService : ILockingService
@@ -89,6 +98,11 @@ namespace FligServerTests.WhenAFileIsModified
             var lockObjects = new List<LockObject>();
             lockedFileDictionary.TryGetValue(filename, out lockObjects);
             return lockObjects;
+        }
+
+        public void CreateLockOverride(string filename, string user)
+        {
+            lockedFileDictionary[filename].Add(new LockObject() { Username =  user, LockedDateTime = DateTime.Now } );
         }
     }
 }

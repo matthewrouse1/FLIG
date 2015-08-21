@@ -57,5 +57,10 @@ namespace FligServer
             }
             return lockObjects;
         }
+
+        public void CreateLockOverride(string filename, string user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
