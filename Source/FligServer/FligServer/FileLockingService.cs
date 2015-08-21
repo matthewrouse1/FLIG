@@ -39,7 +39,7 @@ namespace FligServer
 
         private LockObject GetLockObjectFromString(string lineToParse)
         {
-            var split = lineToParse.Split(':');
+            var split = lineToParse.Split('|');
             if (split.Length >= 2)
             {
                 return new LockObject() {Username = split[0], LockedDateTime = DateTime.Parse(split[1])};
@@ -60,7 +60,25 @@ namespace FligServer
 
         public void CreateLockOverride(string filename, string user)
         {
-            throw new NotImplementedException();
+            var fileContents = new List<string>() {string.Format("{0}|{1}", user, DateTime.Now.ToString())};
+            if (!DoesLockExist(filename))
+                CreateLock(filename, fileContents);
+            else
+            {
+                UpdateLock(filename, user);
+            }
+        }
+
+        private void UpdateLock(string filename, string user)
+        {
+            var info = RetrieveLockInfo(filename);
+            var newData = new string[info.Count() + 1];
+            for (int i = 0; i < 255 && i < info.Count(); i++)
+            {
+                newData[i] = string.Format("{0}|{1}\n", info[i].Username, info[i].LockedDateTime);
+            }
+            newData[newData.Length - 1] = string.Format("{0}|{1}", user, DateTime.Now.ToString());
+            File.WriteAllLines(filename, newData);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace FligServer
             {
                 return BadRequest("The file is already locked");
             }
-            _lockingService.CreateLock(file, new List<string>() { user, DateTime.Now.ToString() });
+            _lockingService.CreateLock(file, new List<string>() { string.Format("{0}|{1}", user , DateTime.Now.ToString() )});
             return Ok(string.Format("Locked: {0}", file));
         }
 
