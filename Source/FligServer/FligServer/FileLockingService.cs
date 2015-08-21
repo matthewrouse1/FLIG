@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace FligServer
 {
@@ -11,11 +12,9 @@ namespace FligServer
             Directory.SetCurrentDirectory(@"C:\flig");
         }
 
-        public void CreateLock(string filename, string content)
+        public void CreateLock(string filename, List<string> content)
         {
-            var array = new string[1];
-            array[0] = content;
-            File.WriteAllLines(filename, array);
+            File.WriteAllLines(filename, content.ToArray());
         }
 
         public bool DoesLockExist(string filename)
@@ -23,10 +22,30 @@ namespace FligServer
             return File.Exists(filename);
         }
 
-        public bool RemoveLock(string filename)
+        public bool RemoveLock(string filename, string user)
         {
+            var fileContents = File.ReadAllLines(filename).ToList();
+            fileContents.RemoveAll(x => GetLockObjectFromString(x).Username == user);
+
             File.Delete(filename);
+
+            if (fileContents.Count > 0)
+            {
+                CreateLock(filename, fileContents);
+            }
+
             return !DoesLockExist(filename);
+        }
+
+        private LockObject GetLockObjectFromString(string lineToParse)
+        {
+            var split = lineToParse.Split(':');
+            if (split.Length >= 2)
+            {
+                return new LockObject() {Username = split[0], LockedDateTime = DateTime.Parse(split[1])};
+            }
+
+            return new LockObject() {Username = lineToParse};
         }
 
         public List<LockObject> RetrieveLockInfo(string filename)
@@ -34,11 +53,7 @@ namespace FligServer
             var lockObjects = new List<LockObject>();
             foreach (var line in File.ReadAllLines(filename))
             {
-                var split = line.Split(':');
-                if (split.Length >= 2)
-                    lockObjects.Add(new LockObject() {Username = split[0], LockedDateTime = DateTime.Parse(split[1])} );
-                else
-                    lockObjects.Add(new LockObject() { Username = line } );
+                lockObjects.Add(GetLockObjectFromString(line));
             }
             return lockObjects;
         }

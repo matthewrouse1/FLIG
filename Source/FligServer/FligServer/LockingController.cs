@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web;
@@ -20,15 +21,15 @@ namespace FligServer
             _lockingService = lockingService;
         }
 
-        [Route("lock/{file}")]
+        [Route("lock/{user}/{file}")]
         [HttpGet]
-        public IHttpActionResult Lock(string file)
+        public IHttpActionResult Lock(string user, string file)
         {
             if (_lockingService.DoesLockExist(file))
             {
                 return BadRequest("The file is already locked");
             }
-            _lockingService.CreateLock(file, "test");
+            _lockingService.CreateLock(file, new List<string>() { user, DateTime.Now.ToString() });
             return Ok(string.Format("Locked: {0}", file));
         }
 
@@ -43,11 +44,11 @@ namespace FligServer
             return BadRequest("File isn't locked");
         }
 
-        [Route("unlock/{file}")]
+        [Route("unlock/{user}/{file}")]
         [HttpGet]
-        public IHttpActionResult Unlock(string file)
+        public IHttpActionResult Unlock(string file, string user)
         {
-            _lockingService.RemoveLock(file);
+            _lockingService.RemoveLock(file, user);
             return Ok(string.Format("Unlocked: {0}", file));
         }
     }

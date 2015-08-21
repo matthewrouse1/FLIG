@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -14,6 +15,7 @@ namespace FligServerTests.WhenAFileIsModified
     public class GivenTheFilenameIsValid
     {
         private string fakeFile;
+        private string fakeUser;
         private LockingController lockingController;
         private IHttpActionResult result;
         private OkNegotiatedContentResult<string> content;
@@ -22,9 +24,10 @@ namespace FligServerTests.WhenAFileIsModified
         public GivenTheFilenameIsValid()
         {
             fakeFile = "aFakeFile.txt";
+            fakeUser = "fakeUser";
             _fakeLockingService = new FakeLockingService();
             lockingController = new LockingController(_fakeLockingService);
-            result = lockingController.Lock(fakeFile);
+            result = lockingController.Lock(fakeUser, fakeFile);
             content = Assert.IsType<OkNegotiatedContentResult<string>>(result);
         }
 
@@ -43,7 +46,7 @@ namespace FligServerTests.WhenAFileIsModified
         [Fact]
         public void ThenTheSameFileCantBeLockedAgain()
         {
-            var secondResult = new LockingController(_fakeLockingService).Lock(fakeFile);
+            var secondResult = new LockingController(_fakeLockingService).Lock("anotherUser", fakeFile);
             var secondResponse = Assert.IsType<BadRequestErrorMessageResult>(secondResult);
             Assert.Equal("The file is already locked", secondResponse.Message);
         }
@@ -51,34 +54,41 @@ namespace FligServerTests.WhenAFileIsModified
         [Fact]
         public void ThenTheFileCanBeUnlocked()
         {
-            lockingController.Unlock(fakeFile);
+            lockingController.Unlock(fakeFile, fakeUser);
             Assert.False(_fakeLockingService.DoesLockExist(fakeFile));
         }
     }
 
     public class FakeLockingService : ILockingService
     {
-        private List<string> lockedFileList = new List<string>();
+        private Dictionary<string, List<LockObject>> lockedFileDictionary = new Dictionary<string, List<LockObject>>();
 
-        public void CreateLock(string filename, string content)
+        public void CreateLock(string filename, List<string> content)
         {
-            lockedFileList.Add(filename);
+            lockedFileDictionary.Add(
+                filename, new List<LockObject>()
+                    { new LockObject()
+                        { Username = content[0], LockedDateTime = DateTime.Parse(content[1]) }
+                    }
+                );
         }
 
         public bool DoesLockExist(string filename)
         {
-            return lockedFileList.Exists(x => x == filename);
+            return lockedFileDictionary.Keys.Contains(filename);
         }
 
-        public bool RemoveLock(string filename)
+        public bool RemoveLock(string filename, string user)
         {
-            lockedFileList.Remove(filename);
+            lockedFileDictionary.Remove(filename);
             return DoesLockExist(filename);
         }
 
         public List<LockObject> RetrieveLockInfo(string filename)
         {
-            return new List<LockObject>() {new LockObject() {Username = "TestUser", LockedDateTime = DateTime.Now}};;
+            var lockObjects = new List<LockObject>();
+            lockedFileDictionary.TryGetValue(filename, out lockObjects);
+            return lockObjects;
         }
     }
 }

@@ -5,9 +5,9 @@ namespace FligServer
 {
     public interface ILockingService
     {
-        void CreateLock(string filename, string content);
+        void CreateLock(string filename, List<string> content);
         bool DoesLockExist(string filename);
-        bool RemoveLock(string filename);
+        bool RemoveLock(string filename, string user);
         List<LockObject> RetrieveLockInfo(string filename);
     }
 
