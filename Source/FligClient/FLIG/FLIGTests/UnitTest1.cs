@@ -1,14 +1,16 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 
-namespace FLIGTests
+namespace FLIGTests.GivenAValidServer
 {
-    [TestClass]
-    public class UnitTest1
+    public class WhenYouCheckoutAFile
     {
-        [TestMethod]
-        public void TestMethod1()
+        [Fact]
+        public void ThenFileIsCheckedOut()
         {
+            var fakeFileName = "testfile.txt";
+            var fligServer = new FligServer();
+            fligServer.Checkout(fakeFileName);
+            fligServer.CheckLockStatus(fakeFileName);
         }
     }
 }
