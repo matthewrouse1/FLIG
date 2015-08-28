@@ -3,18 +3,26 @@ using Xunit;
 using Moq;
 using RestSharp;
 
-namespace GivenWeHaveAServerConnection
+namespace GivenARequest
 {
-    public class WhenAFileLockIsRequested
+    public class WhentheRequestIsValid
     {
-        [Fact]
-        public void ThenCheckTheResponseIsValid()
+        private string aFakeFile;
+        private Mock<IRestClient> moqRestClient;
+        private LockedFilesModel lockedFileModel;
+
+        public WhentheRequestIsValid()
         {
-            var aFakeFile = "testFile.txt";
-            var moqRestClient = new Mock<IRestClient>();
+            aFakeFile = "testFile.txt";
+            moqRestClient = new Mock<IRestClient>();
+            lockedFileModel = new LockedFilesModel(moqRestClient.Object);
+        }
+
+        [Fact]
+        public void ThenCheckTheLockFileResponseIsCompleted()
+        {
             moqRestClient.Setup(x => x.Execute(It.IsAny<IRestRequest>()))
                 .Returns(new RestResponse() {ResponseStatus = ResponseStatus.Completed});
-            var lockedFileModel = new LockedFilesModel(moqRestClient.Object);
             Assert.True(lockedFileModel.LockFile(aFakeFile));
         }
     }
