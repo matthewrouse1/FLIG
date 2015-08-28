@@ -1,7 +1,7 @@
 ﻿using FligClient;
 using Xunit;
 
-namespace FLIGTests.GivenAFileNeedsToBeChanges
+namespace FLIGTests.GivenAFileNeedsToBeChanged
 {
     public class WhenTheFileIsntLocked
     {
@@ -50,6 +50,23 @@ namespace FLIGTests.GivenAFileNeedsToBeChanges
         }
     }
 
+    public class WhenTheFileNeedsToBeCheckedIn
+    {
+        private LockedFilesViewModel lockedFilesViewModel;
+        private string fakeFileName = "testfile.txt";
+
+        public WhenTheFileNeedsToBeCheckedIn()
+        {
+            lockedFilesViewModel = new LockedFilesViewModel(new FakeLockedFilesModel());
+            lockedFilesViewModel.CurrentFile = fakeFileName;
+            lockedFilesViewModel.CheckoutFile();
+        }
+
+        [Fact]
+        public void ThenTheLockIsRemoved()
+        {
+            Assert.True(lockedFilesViewModel.UnlockFileCommand.CanExecute(null));
+        }
     }
 
     public class FakeLockedFilesModel : ILockedfilesModel

@@ -64,5 +64,27 @@ namespace FligClient
         {
             _lockedfilesModel.LockFile(CurrentFile);
         }
+
+        public ICommand UnlockFileCommand
+        {
+            get
+            {
+                if(unlockFileCommand == null)
+                    unlockFileCommand = new DelegateCommand(new Action(UnlockFile), new Func<bool>(CanUnlockFile));
+                return unlockFileCommand;
+            }
+        }
+
+        private DelegateCommand unlockFileCommand;
+
+        public bool CanUnlockFile()
+        {
+            return true;
+        }
+
+        public void UnlockFile()
+        {
+            _lockedfilesModel.UnlockFile(CurrentFile);
+        }
     }
 }
