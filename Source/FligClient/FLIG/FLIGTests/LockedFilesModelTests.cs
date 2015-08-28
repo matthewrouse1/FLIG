@@ -32,6 +32,12 @@ namespace GivenARequest
         {
             Assert.True(lockedFileModel.OverrideLockOnFile(aFakeFile));            
         }
+
+        [Fact]
+        public void ThenCheckTheUnlockResponseIsTrue()
+        {
+            Assert.True(lockedFileModel.UnlockFile(aFakeFile));
+        }
     }
 
     public class WhenTheRequestIsInvalid
@@ -58,6 +64,12 @@ namespace GivenARequest
         public void ThenCheckTheOverrideLockFileResponseIsTrue()
         {
             Assert.False(lockedFileModel.OverrideLockOnFile(aFakeFile));
+        }
+
+        [Fact]
+        public void ThenCheckTheOverrideUnloockFileResponseIsTrue()
+        {
+            Assert.False(lockedFileModel.UnlockFile(aFakeFile));
         }
     }
 

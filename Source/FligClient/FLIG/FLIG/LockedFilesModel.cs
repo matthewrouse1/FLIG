@@ -43,7 +43,7 @@ namespace FligClient
 
         public bool UnlockFile(string filename)
         {
-            return true;
+            return ExecuteWebRequest(UnlockApiRequest, filename).ResponseStatus == ResponseStatus.Completed;
         }
 
         private IRestResponse ExecuteWebRequest(string apiLocation, string filename)
