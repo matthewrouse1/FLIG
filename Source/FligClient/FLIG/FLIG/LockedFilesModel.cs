@@ -24,14 +24,12 @@ namespace FligClient
 
         public bool LockFile(string filename)
         {
-            var request = new RestRequest(LockApiRequest, Method.GET);
-            var response = _apiClient.Execute(request);
-            return response.ResponseStatus == ResponseStatus.Completed;
+            return ExecuteWebRequest(LockApiRequest).ResponseStatus == ResponseStatus.Completed;
         }
 
         public bool OverrideLockOnFile(string filename)
         {
-            return true;
+            return ExecuteWebRequest(OverrideApiRequest).ResponseStatus == ResponseStatus.Completed;
         }
 
         public LockedFileInfo CheckLockOnFile(string filename)
@@ -42,6 +40,12 @@ namespace FligClient
         public bool UnlockFile(string filename)
         {
             return true;
+        }
+
+        private IRestResponse ExecuteWebRequest(string apiLocation)
+        {
+            var request = new RestRequest(OverrideApiRequest, Method.GET);
+            return _apiClient.Execute(request);            
         }
     }
 }
