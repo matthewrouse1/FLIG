@@ -26,7 +26,13 @@ namespace GivenARequest
             Assert.True(lockedFileModel.LockFile(aFakeFile));
         }
 
-
+        [Fact]
+        public void ThenCheckTheOverrideLockFileResponseIsTrue()
+        {
+            moqRestClient.Setup(x => x.Execute(It.IsAny<IRestRequest>()))
+                .Returns(new RestResponse() { ResponseStatus = ResponseStatus.Completed });
+            Assert.True(lockedFileModel.OverrideLockOnFile(aFakeFile));            
+        }
     }
 
     public class WhenTheRequestIsInvalid
@@ -48,6 +54,14 @@ namespace GivenARequest
              moqRestClient.Setup(x => x.Execute(It.IsAny<IRestRequest>()))
                 .Returns(new RestResponse() {ResponseStatus = ResponseStatus.Error});
             Assert.False(lockedFileModel.LockFile(aFakeFile));           
+        }
+
+        [Fact]
+        public void ThenCheckTheOverrideLockFileResponseIsTrue()
+        {
+            moqRestClient.Setup(x => x.Execute(It.IsAny<IRestRequest>()))
+                .Returns(new RestResponse() { ResponseStatus = ResponseStatus.Error });
+            Assert.False(lockedFileModel.OverrideLockOnFile(aFakeFile));
         }
     }
 }
