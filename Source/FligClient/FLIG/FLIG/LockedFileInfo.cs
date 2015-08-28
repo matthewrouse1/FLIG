@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FligClient
 {
     public class LockedFileInfo
     {
-        public bool HasLock { get; set; }
-
-        public List<Lock> Locks { get; set; }
-    }
-
-    public class Lock
-    {
-        public string Username { get; set; }
-        public DateTime LockedDateTime { get; set; }
+        public bool HasLock => Locks.Any();
+    
+        public List<LockObject> Locks { get; set; }
     }
 }

@@ -58,7 +58,7 @@ namespace FligClient
 
         public bool CanCheckoutFile()
         {
-            return _lockedfilesModel.CheckLockOnFile(CurrentFile).HasLock;
+            return !_lockedfilesModel.CheckLockOnFile(CurrentFile).HasLock;
         }
 
         public void CheckoutFile()

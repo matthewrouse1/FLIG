@@ -20,7 +20,7 @@ namespace FLIGTests.GivenAFileNeedsToBeChanged
         public void ThenFileIsCheckedOut()
         {
             // Cannot checkout the file now, because it is locked
-            Assert.True(!lockedFilesViewModel.CanCheckoutFile());
+            Assert.False(lockedFilesViewModel.CanCheckoutFile());
         }
     }
 
@@ -105,7 +105,7 @@ namespace FLIGTests.GivenAFileNeedsToBeChanged
 
         public LockedFileInfo CheckLockOnFile(string filename)
         {
-            return new LockedFileInfo() { Locks = new List<Lock>() { new Lock() { Username = "testUser" } } };
+            return new LockedFileInfo() { Locks = new List<LockObject>() { new LockObject() { Username = "testUser" } } };
         }
 
         public bool UnlockFile(string filename)

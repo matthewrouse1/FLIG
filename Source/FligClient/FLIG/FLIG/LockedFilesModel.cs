@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.RightsManagement;
+using System.Windows.Documents;
 using RestSharp;
 
 namespace FligClient
 {
     public class LockedFilesModel : ILockedfilesModel
     {
+
         public IRestClient _apiClient;
         private UserInfo _userInfo;
 
@@ -36,9 +39,11 @@ namespace FligClient
             return ExecuteWebRequest(OverrideApiRequest, filename).ResponseStatus == ResponseStatus.Completed;
         }
 
+        // Special case so the restclient request has to go straight to the implementation
         public LockedFileInfo CheckLockOnFile(string filename)
         {
-            return new LockedFileInfo();
+            var response = _apiClient.Execute<List<LockObject>>(new RestRequest(CheckApiRequest, Method.GET) { Parameters = {  new Parameter() { Name = "file", Value = filename, Type = ParameterType.UrlSegment} }});
+            return new LockedFileInfo() { Locks = response.Data };
         }
 
         public bool UnlockFile(string filename)
@@ -53,5 +58,11 @@ namespace FligClient
             request.AddParameter("file", filename, ParameterType.UrlSegment);
             return _apiClient.Execute(request);            
         }
+    }
+
+    public class LockObject
+    {
+        public string Username { get; set; }
+        public DateTime LockedDateTime { get; set; }
     }
 }
