@@ -8,10 +8,10 @@ namespace FligClient
         public IRestClient _apiClient;
         public string webAPIAddress = @"http://localhost:18777/";
 
-        public string LockApiRequest = @"/flig/lock/{user}/{file}";
-        public string OverrideApiRequest = @"/flig/override/{user}/{file}";
-        public string UnlockApiRequest = @"/flig/unlock/{user}/{file}";
-        public string CheckApiRequest = @"/flig/check/{file}";
+        private string LockApiRequest = @"/flig/lock/{user}/{file}";
+        private string OverrideApiRequest = @"/flig/override/{user}/{file}";
+        private string UnlockApiRequest = @"/flig/unlock/{user}/{file}";
+        private string CheckApiRequest = @"/flig/check/{file}";
 
         public LockedFilesModel() : this(new RestClient())
         { }
