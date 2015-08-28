@@ -5,13 +5,22 @@ namespace FLIGTests.GivenAFileNeedsToBeChanges
 {
     public class WhenTheFileIsntLocked
     {
+        private LockedFilesViewModel lockedFilesViewModel;
+        private string fakeFileName = "testfile.txt";
+
+        public WhenTheFileIsntLocked()
+        {
+            lockedFilesViewModel = new LockedFilesViewModel(new FakeLockedFilesModel());
+            lockedFilesViewModel.CurrentFile = fakeFileName;
+            lockedFilesViewModel.CheckoutFile();
+        }
+
         [Fact]
         public void ThenFileIsCheckedOut()
         {
-            var fakeFileName = "testfile.txt";
-            var lockedFilesViewModel = new LockedFilesModel();
-            Assert.True(lockedFilesViewModel.LockFile(fakeFileName));
-        }
+            // Cannot checkout the file now, because it is locked
+            Assert.True(!lockedFilesViewModel.CanCheckoutFile());
+        }       
     }
 
     public class FakeLockedFilesModel : ILockedfilesModel

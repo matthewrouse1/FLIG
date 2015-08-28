@@ -39,7 +39,7 @@ namespace FligClient
 
         public void CheckoutFile()
         {
-            _lockedfilesModel.Lockfile(CurrentFile);
+            _lockedfilesModel.LockFile(CurrentFile);
         }
 
 

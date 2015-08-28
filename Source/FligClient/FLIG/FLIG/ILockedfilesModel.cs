@@ -2,7 +2,7 @@
 {
     public interface ILockedfilesModel
     {
-        bool Lockfile(string filename);
+        bool LockFile(string filename);
 
         bool OverrideLockOnFile(string filename);
 

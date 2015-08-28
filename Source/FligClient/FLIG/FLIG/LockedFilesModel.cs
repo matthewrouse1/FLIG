@@ -8,7 +8,7 @@ namespace FligClient
 {
     public class LockedFilesModel : ILockedfilesModel
     {
-        public bool Lockfile(string filename)
+        public bool LockFile(string filename)
         {
             return true;
         }
