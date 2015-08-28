@@ -1,16 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RestSharp;
 
 namespace FligClient
 {
     public class LockedFilesModel : ILockedfilesModel
     {
+        public IRestClient _apiClient;
+        public string webAPIAddress = @"http://localhost:18777/";
+
+        public string LockApiRequest = @"/flig/lock/{user}/{file}";
+        public string OverrideApiRequest = @"/flig/override/{user}/{file}";
+        public string UnlockApiRequest = @"/flig/unlock/{user}/{file}";
+        public string CheckApiRequest = @"/flig/check/{file}";
+
+        public LockedFilesModel() : this(new RestClient())
+        { }
+
+        public LockedFilesModel(IRestClient apiClient)
+        {
+            _apiClient = apiClient;
+            _apiClient.BaseUrl = new Uri(webAPIAddress);
+        }
+
         public bool LockFile(string filename)
         {
-            return true;
+            var request = new RestRequest(LockApiRequest, Method.GET);
+            var response = _apiClient.Execute(request);
+            return response.ResponseStatus == ResponseStatus.Completed;
         }
 
         public bool OverrideLockOnFile(string filename)
