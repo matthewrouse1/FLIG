@@ -7,7 +7,7 @@
     <ProjectGuid>{DAD8B090-9A33-4303-91DA-221DD7229C82}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FLIG</RootNamespace>
+    <RootNamespace>FligClient</RootNamespace>
     <AssemblyName>FLIG</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
