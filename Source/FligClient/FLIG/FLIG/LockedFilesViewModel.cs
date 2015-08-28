@@ -18,6 +18,29 @@ namespace FligClient
         }
 
         public string CurrentFile;
+        public bool OverrideAuthority;
+
+        public ICommand OverrideCheckoutCommand
+        {
+            get
+            {
+                if(overrideChekoutCommand == null)
+                    overrideChekoutCommand = new DelegateCommand(new Action(OverrideCheckoutFile), new Func<bool>(CanOverrideCheckoutFile));
+                return overrideChekoutCommand;
+            }
+        }
+
+        private DelegateCommand overrideChekoutCommand;
+
+        private bool CanOverrideCheckoutFile()
+        {
+            return OverrideAuthority;
+        }
+
+        public void OverrideCheckoutFile()
+        {
+            _lockedfilesModel.LockFile(CurrentFile);
+        }
 
         public ICommand CheckoutCommand
         {
@@ -41,7 +64,5 @@ namespace FligClient
         {
             _lockedfilesModel.LockFile(CurrentFile);
         }
-
-
     }
 }
