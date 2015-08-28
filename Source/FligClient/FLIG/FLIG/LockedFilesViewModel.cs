@@ -19,6 +19,7 @@ namespace FligClient
 
         public string CurrentFile;
         public bool OverrideAuthority;
+        public LockedFileInfo CurrentFileLockInfo;
 
         public ICommand OverrideCheckoutCommand
         {
@@ -85,6 +86,28 @@ namespace FligClient
         public void UnlockFile()
         {
             _lockedfilesModel.UnlockFile(CurrentFile);
+        }
+
+        public ICommand GetStatusCommand
+        {
+            get
+            {
+                if (getStatusCommand == null)
+                    getStatusCommand = new DelegateCommand(new Action(GetStatus), new Func<bool>(CanGetStatus));
+                return getStatusCommand;
+            }
+        }
+
+        private DelegateCommand getStatusCommand;
+
+        private bool CanGetStatus()
+        {
+            return true;
+        }
+
+        public void GetStatus()
+        {
+            CurrentFileLockInfo = _lockedfilesModel.CheckLockOnFile(CurrentFile);
         }
     }
 }
