@@ -62,7 +62,7 @@ namespace FligClient.FileBrowsing
             }
         }
 
-        public FileAndFolderBrowserViewModel() : this(new FileAndFolderAndFolderFileAndFolderBrowserModel())
+        public FileAndFolderBrowserViewModel() : this(new FileAndFolderBrowserModel())
         {
         }
 

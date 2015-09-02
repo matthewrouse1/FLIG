@@ -59,7 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FileBrowsing\FileAndFolderAndFolderFileAndFolderBrowserModel.cs" />
+    <Compile Include="FileBrowsing\FileAndFolderBrowserModel.cs" />
     <Compile Include="FileBrowsing\FileAndFolderBrowserViewModel.cs" />
     <Compile Include="FileBrowsing\IFileAndFolderBrowserModel.cs" />
     <Compile Include="FileLocking\UserInfo.cs" />
@@ -82,6 +82,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterViewModel\MasterViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

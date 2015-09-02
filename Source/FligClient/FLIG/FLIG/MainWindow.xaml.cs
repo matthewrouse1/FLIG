@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FligClient.FileBrowsing;
+using FligClient.MasterViewModel;
 
 namespace FLIG
 {
@@ -24,12 +25,14 @@ namespace FLIG
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new FileAndFolderBrowserViewModel();
+            this.DataContext = new MasterViewModel();
         }
+
+
 
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            ((FileAndFolderBrowserViewModel) DataContext).SelectedFolder = (Folder)e.NewValue;
+            ((MasterViewModel) DataContext).SelectedFolder = (Folder)e.NewValue;
         }
     }
 }

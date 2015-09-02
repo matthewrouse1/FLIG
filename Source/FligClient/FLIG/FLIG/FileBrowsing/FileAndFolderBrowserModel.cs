@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FligClient.FileBrowsing
 {
-    public class FileAndFolderAndFolderFileAndFolderBrowserModel : IFileAndFolderBrowserModel
+    public class FileAndFolderBrowserModel : IFileAndFolderBrowserModel
     {
         public Collection<Folder> FolderList
         {
