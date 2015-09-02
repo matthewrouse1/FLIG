@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace FligClient.FileBrowsing
 {
     public class FileAndFolderBrowserModel : IFileAndFolderBrowserModel
-    {
+    { 
         public Collection<Folder> FolderList
         {
             get
@@ -29,7 +29,7 @@ namespace FligClient.FileBrowsing
 
                 foreach (var file in Directory.GetFiles(CurrentlySelectedPath))
                 {
-                    fileCollection.Add(new File() { Name = file, LockedOutBy = "George" } );
+                    fileCollection.Add(new File() { Name = file} );
                 }
 
                 return fileCollection;

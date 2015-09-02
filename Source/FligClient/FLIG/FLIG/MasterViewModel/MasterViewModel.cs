@@ -28,14 +28,35 @@ namespace FligClient.MasterViewModel
 
         public IEnumerable<Folder> FolderList => _fileAndFolderBrowserViewModel.FolderList;
 
-        public IEnumerable<File> FileList => _fileAndFolderBrowserViewModel.FileList;
+        public IEnumerable<File> FileList => DecorateFileDetails();
+
+        private IEnumerable<File> DecorateFileDetails()
+        {
+            var files = _fileAndFolderBrowserViewModel.FileList;
+
+            foreach (var file in files)
+            {
+                _lockedFilesViewModel.CurrentFile = file.Name;
+                _lockedFilesViewModel.GetStatus();
+
+                var lockedBy = string.Empty;
+                if (_lockedFilesViewModel.CurrentFileLockInfo.HasLock)
+                {
+                    lockedBy = _lockedFilesViewModel.CurrentFileLockInfo.Locks.Aggregate(lockedBy, (current, lockUser) => string.Format("{0} {1}", current, lockUser.Username));
+                }
+
+                file.LockedOutBy = lockedBy;
+            }
+
+            return files;
+        }
 
         public Folder SelectedFolder
         {
             get { return _fileAndFolderBrowserViewModel.SelectedFolder; }
             set
             {
-                _fileAndFolderBrowserViewModel.SelectedFolder = value; 
+                _fileAndFolderBrowserViewModel.SelectedFolder = value;
                 OnPropertyChanged(nameof(FileList));
             }
         }
@@ -45,7 +66,7 @@ namespace FligClient.MasterViewModel
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));  
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
