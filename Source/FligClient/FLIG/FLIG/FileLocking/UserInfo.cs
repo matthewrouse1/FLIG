@@ -2,6 +2,6 @@
 {
     public class UserInfo
     {
-        public string Username => "matt";
+        public string Username { get; set; }
     }
 }

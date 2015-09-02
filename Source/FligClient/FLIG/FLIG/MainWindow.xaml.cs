@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FligClient.FileBrowsing;
 
 namespace FLIG
 {
@@ -23,6 +24,7 @@ namespace FLIG
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new FileBrowserViewModel();
         }
     }
 }

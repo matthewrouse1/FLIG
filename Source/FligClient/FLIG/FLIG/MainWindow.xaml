@@ -4,9 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FLIG"
+        xmlns:fileBrowsing="clr-namespace:FligClient.FileBrowsing"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="571.235" Width="715.964">
     <Grid>
-        
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="12" VerticalAlignment="Top" Width="517"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="318,17,0,0" VerticalAlignment="Top" Height="513" Width="380"/>
+        <TreeView ItemsSource="{Binding FolderList}" x:Name="treeView" HorizontalAlignment="Left" Height="513" Margin="10,17,0,0" VerticalAlignment="Top" Width="303">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="{x:Type fileBrowsing:Folder}">
+                    <TreeViewItem Header="{Binding Path=Name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
     </Grid>
 </Window>
