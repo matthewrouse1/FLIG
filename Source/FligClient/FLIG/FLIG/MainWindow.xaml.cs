@@ -24,7 +24,12 @@ namespace FLIG
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new FileBrowserViewModel();
+            this.DataContext = new FileAndFolderBrowserViewModel();
+        }
+
+        private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            ((FileAndFolderBrowserViewModel) DataContext).SelectedFolder = (Folder)e.NewValue;
         }
     }
 }

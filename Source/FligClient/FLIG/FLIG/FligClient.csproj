@@ -59,9 +59,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FileBrowsing\FileBrowserModel.cs" />
-    <Compile Include="FileBrowsing\FileBrowserViewModel.cs" />
-    <Compile Include="FileBrowsing\IFileBrowserModel.cs" />
+    <Compile Include="FileBrowsing\FileAndFolderAndFolderFileAndFolderBrowserModel.cs" />
+    <Compile Include="FileBrowsing\FileAndFolderBrowserViewModel.cs" />
+    <Compile Include="FileBrowsing\IFileAndFolderBrowserModel.cs" />
     <Compile Include="FileLocking\UserInfo.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
