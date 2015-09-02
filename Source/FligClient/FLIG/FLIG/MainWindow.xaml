@@ -8,14 +8,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="571.235" Width="715.964">
     <Grid>
-        <Menu x:Name="menu" HorizontalAlignment="Left" Height="12" VerticalAlignment="Top" Width="517"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="318,17,0,0" VerticalAlignment="Top" Height="513" Width="380" ItemsSource="{Binding FileList }"/>
-        <TreeView ItemsSource="{Binding FolderList}" SelectedItemChanged="TreeView_OnSelectedItemChanged" x:Name="treeView" HorizontalAlignment="Left" Height="513" Margin="10,17,0,0" VerticalAlignment="Top" Width="303">
-            <TreeView.Resources>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="{x:Type fileBrowsing:Folder}">
-                    <TreeViewItem Header="{Binding Path=Name}" />
-                </HierarchicalDataTemplate>
-            </TreeView.Resources>
-        </TreeView>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="290"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Menu x:Name="menu" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding FileList }" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="File Name" Binding="{Binding Path=Name}" />
+                <DataGridTextColumn Header="Locked By" Binding="{Binding Path=LockedOutBy}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DockPanel Grid.Column="0" Grid.Row="1">
+            <TreeView ItemsSource="{Binding FolderList}" SelectedItemChanged="TreeView_OnSelectedItemChanged" x:Name="treeView" Margin="10,10,10,10">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="{x:Type fileBrowsing:Folder}">
+                        <TreeViewItem Header="{Binding Path=Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+        </DockPanel>
+
     </Grid>
 </Window>
