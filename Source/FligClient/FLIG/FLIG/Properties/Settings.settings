@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FligClient.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Username" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Matt</Value>
+    </Setting>
+    <Setting Name="RepoDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\repos\alb</Value>
+    </Setting>
+    <Setting Name="WebApiPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:18777/</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

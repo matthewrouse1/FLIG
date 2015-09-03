@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Security.RightsManagement;
 using System.Windows.Documents;
 using RestSharp;
+using RestSharp.Extensions.MonoHttp;
 
 namespace FligClient
 {
@@ -11,8 +13,6 @@ namespace FligClient
 
         public IRestClient _apiClient;
         private UserInfo _userInfo;
-
-        public string webAPIAddress = @"http://localhost:18777/";
 
         private string LockApiRequest = @"/flig/lock/{user}/{file}";
         private string OverrideApiRequest = @"/flig/override/{user}/{file}";
@@ -26,7 +26,7 @@ namespace FligClient
         {
             _userInfo = userInfo;
             _apiClient = apiClient;
-            _apiClient.BaseUrl = new Uri(webAPIAddress);
+            _apiClient.BaseUrl = new Uri(_userInfo.WebApiPath);
         }
 
         public bool LockFile(string filename)
@@ -39,10 +39,15 @@ namespace FligClient
             return ExecuteWebRequest(OverrideApiRequest, filename).ResponseStatus == ResponseStatus.Completed;
         }
 
+        private string EncodeFilename(string filename)
+        {
+            return filename.Replace(_userInfo.RepoDir, "").Replace(@"\", "");
+        }
+
         // Special case so the restclient request has to go straight to the implementation
         public LockedFileInfo CheckLockOnFile(string filename)
         {
-            var response = _apiClient.Execute<List<LockObject>>(new RestRequest(CheckApiRequest, Method.GET) { Parameters = {  new Parameter() { Name = "file", Value = filename, Type = ParameterType.UrlSegment} }});
+            var response = _apiClient.Execute<List<LockObject>>(new RestRequest(CheckApiRequest, Method.GET) { Parameters = {  new Parameter() { Name = "file", Value = EncodeFilename(filename), Type = ParameterType.UrlSegment} }});
             return new LockedFileInfo() { Locks = response.Data };
         }
 
@@ -53,9 +58,9 @@ namespace FligClient
 
         private IRestResponse ExecuteWebRequest(string apiLocation, string filename)
         {
-            var request = new RestRequest(OverrideApiRequest, Method.GET);
+            var request = new RestRequest(apiLocation, Method.GET);
             request.AddParameter("user", _userInfo.Username, ParameterType.UrlSegment);
-            request.AddParameter("file", filename, ParameterType.UrlSegment);
+            request.AddParameter("file", EncodeFilename(filename), ParameterType.UrlSegment);
             return _apiClient.Execute(request);            
         }
     }

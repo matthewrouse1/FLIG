@@ -6,8 +6,31 @@ namespace FligClient
 {
     public class LockedFileInfo
     {
-        public bool HasLock => Locks.Any();
-    
-        public List<LockObject> Locks { get; set; }
+        public LockedFileInfo()
+        {
+            Locks = new List<LockObject>();
+        }
+
+        public bool HasLock
+        {
+            get
+            {
+                if (Locks == null || Locks.Count == 0)
+                    return false;
+                return true;
+            }
+        }
+
+        private List<LockObject> locks;
+
+        public List<LockObject> Locks
+        {
+            get { return locks; }
+            set
+            {
+                if (value != null)
+                    locks = value;
+            }
+        }
     }
 }

@@ -32,6 +32,9 @@ namespace FligClient.MasterViewModel
 
         private IEnumerable<File> DecorateFileDetails()
         {
+            if (_fileAndFolderBrowserViewModel.FileList == null)
+                return new Collection<File>();
+
             var files = _fileAndFolderBrowserViewModel.FileList;
 
             foreach (var file in files)
@@ -40,10 +43,7 @@ namespace FligClient.MasterViewModel
                 _lockedFilesViewModel.GetStatus();
 
                 var lockedBy = string.Empty;
-                if (_lockedFilesViewModel.CurrentFileLockInfo.HasLock)
-                {
-                    lockedBy = _lockedFilesViewModel.CurrentFileLockInfo.Locks.Aggregate(lockedBy, (current, lockUser) => string.Format("{0} {1}", current, lockUser.Username));
-                }
+                lockedBy = _lockedFilesViewModel.CurrentFileLockInfo.Locks.Aggregate(lockedBy, (current, lockUser) => string.Format("{0} {1}", current, lockUser.Username));
 
                 file.LockedOutBy = lockedBy;
             }
