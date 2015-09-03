@@ -71,6 +71,8 @@ namespace FligClient.FileBrowsing
             _fileAndFolderBrowserModel = fileAndFolderBrowserModel;
 
             folderList = _fileAndFolderBrowserModel.FolderList;
+
+            FileList = new Collection<File>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

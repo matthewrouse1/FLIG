@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,27 +30,9 @@ namespace FLIG
             this.DataContext = new MasterViewModel();
         }
 
-
-
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             ((MasterViewModel) DataContext).SelectedFolder = (Folder)e.NewValue;
-        }
-
-        private List<File> selectedFiles = new List<File>();
-
-        private void CheckoutClicked(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void DataGrid_OnSelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            selectedFiles = new List<File>();
-            foreach (var cell in e.AddedCells)
-            {
-                selectedFiles.Add((File)cell.Item);
-            }
         }
     }
 }

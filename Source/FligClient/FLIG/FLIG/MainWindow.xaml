@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:FLIG"
         xmlns:fileBrowsing="clr-namespace:FligClient.FileBrowsing"
         mc:Ignorable="d"
+        xmlns:dependencyProperties="clr-namespace:FligClient.DependencyProperties"
+        xmlns:lockingVM="clr-namespace:FligClient"
         Title="MainWindow" Height="571.235" Width="715.964">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,17 +25,22 @@
                 <MenuItem Header="_Exit" Command="{Binding ExitCommand}" />
             </MenuItem>    
         </Menu>
-        <DataGrid x:Name="dataGrid" ItemsSource="{Binding FileList }" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False">
+        <dependencyProperties:CustomDataGrid x:Name="dataGrid" ItemsSource="{Binding FileList}" 
+                  Grid.Column="1" Grid.Row="1" 
+                  Margin="10,10,10,10" VerticalAlignment="Stretch" 
+                  HorizontalAlignment="Stretch" AutoGenerateColumns="False"
+                  CanUserAddRows="False" 
+                  SelectedItemsList="{Binding Path=SelectedItemsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="File Name" Binding="{Binding Path=Name}" />
                 <DataGridTextColumn Header="Locked By" Binding="{Binding Path=LockedOutBy}" />
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Checkout" Click="CheckoutClicked"/>
+                    <MenuItem Header="Checkout" Command="{Binding Path=CheckoutCommand}"/>
                 </ContextMenu>  
             </DataGrid.ContextMenu>
-        </DataGrid>
+        </dependencyProperties:CustomDataGrid>
         <DockPanel Grid.Column="0" Grid.Row="1">
             <TreeView ItemsSource="{Binding FolderList}" SelectedItemChanged="TreeView_OnSelectedItemChanged" x:Name="treeView" Margin="10,10,10,10">
                 <TreeView.Resources>

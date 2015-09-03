@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
+using System.Windows.Input;
 using FligClient.Annotations;
 using FligClient.FileBrowsing;
 
@@ -26,16 +29,28 @@ namespace FligClient.MasterViewModel
             _fileAndFolderBrowserViewModel = fileAndFolderBrowserViewModel;
         }
 
+        public ICommand CheckoutCommand
+        {
+            get { return new DelegateCommand(Checkout); }
+        }
+
+        public void Checkout()
+        {
+            foreach (var file in SelectedItemsList)
+            {
+                _lockedFilesViewModel.CurrentFile = ((File) file).Name;
+                _lockedFilesViewModel.CheckoutCommand.Execute(null);
+            }
+            OnPropertyChanged(nameof(FileList));
+        }
+
         public IEnumerable<Folder> FolderList => _fileAndFolderBrowserViewModel.FolderList;
 
         public IEnumerable<File> FileList => DecorateFileDetails();
 
         private IEnumerable<File> DecorateFileDetails()
         {
-            if (_fileAndFolderBrowserViewModel.FileList == null)
-                return new Collection<File>();
-
-            var files = _fileAndFolderBrowserViewModel.FileList;
+            var files = _fileAndFolderBrowserViewModel.FileList.ToList();
 
             foreach (var file in files)
             {
@@ -49,6 +64,18 @@ namespace FligClient.MasterViewModel
             }
 
             return files;
+        }
+
+        private IList _selectedItems = new ArrayList(); 
+
+        public IList SelectedItemsList
+        {
+            get { return _selectedItems; }
+            set
+            {
+                _selectedItems = value;
+                OnPropertyChanged(nameof(SelectedItemsList));
+            }
         }
 
         public Folder SelectedFolder

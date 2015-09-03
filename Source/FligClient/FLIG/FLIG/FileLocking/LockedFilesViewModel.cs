@@ -1,10 +1,14 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Security;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using FligClient.Annotations;
 
 namespace FligClient
 {
-    public class LockedFilesViewModel
+    public class LockedFilesViewModel : INotifyPropertyChanged
     {
         private ILockedfilesModel _lockedfilesModel;
 
@@ -64,6 +68,7 @@ namespace FligClient
         public void CheckoutFile()
         {
             _lockedfilesModel.LockFile(CurrentFile);
+            OnPropertyChanged(nameof(CheckoutCommand));
         }
 
         public ICommand UnlockFileCommand
@@ -108,6 +113,14 @@ namespace FligClient
         public void GetStatus()
         {
             CurrentFileLockInfo = _lockedfilesModel.CheckLockOnFile(CurrentFile);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));      
         }
     }
 }
