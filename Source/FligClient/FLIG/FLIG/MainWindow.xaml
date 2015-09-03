@@ -28,6 +28,11 @@
                 <DataGridTextColumn Header="File Name" Binding="{Binding Path=Name}" />
                 <DataGridTextColumn Header="Locked By" Binding="{Binding Path=LockedOutBy}" />
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Checkout" Click="CheckoutClicked"/>
+                </ContextMenu>  
+            </DataGrid.ContextMenu>
         </DataGrid>
         <DockPanel Grid.Column="0" Grid.Row="1">
             <TreeView ItemsSource="{Binding FolderList}" SelectedItemChanged="TreeView_OnSelectedItemChanged" x:Name="treeView" Margin="10,10,10,10">

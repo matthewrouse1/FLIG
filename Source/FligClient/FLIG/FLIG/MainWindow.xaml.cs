@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FligClient.FileBrowsing;
 using FligClient.MasterViewModel;
+using RestSharp.Extensions;
 
 namespace FLIG
 {
@@ -33,6 +34,22 @@ namespace FLIG
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             ((MasterViewModel) DataContext).SelectedFolder = (Folder)e.NewValue;
+        }
+
+        private List<File> selectedFiles = new List<File>();
+
+        private void CheckoutClicked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void DataGrid_OnSelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            selectedFiles = new List<File>();
+            foreach (var cell in e.AddedCells)
+            {
+                selectedFiles.Add((File)cell.Item);
+            }
         }
     }
 }

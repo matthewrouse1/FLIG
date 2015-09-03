@@ -65,11 +65,6 @@
     <Compile Include="FileLocking\UserInfo.cs" />
     <Compile Include="Providers\SettingsProvider.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Settings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings1.settings</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,7 +73,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="Providers\DelegateCommand.cs" />
     <Compile Include="FileLocking\ILockedfilesModel.cs" />
     <Compile Include="FileLocking\LockedFileInfo.cs" />
     <Compile Include="FileLocking\LockedFilesModel.cs" />
@@ -114,10 +109,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Settings1.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
