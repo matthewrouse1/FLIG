@@ -38,6 +38,7 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Checkout" Command="{Binding Path=CheckoutCommand}"/>
+                    <MenuItem Header="Checkin" Command="{Binding Path=CheckinCommand}"/>
                 </ContextMenu>  
             </DataGrid.ContextMenu>
         </dependencyProperties:CustomDataGrid>

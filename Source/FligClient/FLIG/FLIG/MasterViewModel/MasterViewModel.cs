@@ -31,17 +31,34 @@ namespace FligClient.MasterViewModel
 
         public ICommand CheckoutCommand
         {
-            get { return new DelegateCommand(Checkout); }
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    foreach (var file in SelectedItemsList)
+                    {
+                        _lockedFilesViewModel.CurrentFile = ((File)file).Name;
+                        _lockedFilesViewModel.CheckoutCommand.Execute(null);
+                    }
+                    OnPropertyChanged(nameof(FileList));
+                });
+            }
         }
 
-        public void Checkout()
+        public ICommand CheckinCommand
         {
-            foreach (var file in SelectedItemsList)
+             get
             {
-                _lockedFilesViewModel.CurrentFile = ((File) file).Name;
-                _lockedFilesViewModel.CheckoutCommand.Execute(null);
-            }
-            OnPropertyChanged(nameof(FileList));
+                return new DelegateCommand(() =>
+                {
+                    foreach (var file in SelectedItemsList)
+                    {
+                        _lockedFilesViewModel.CurrentFile = ((File)file).Name;
+                        _lockedFilesViewModel.UnlockFileCommand.Execute(null);
+                    }
+                    OnPropertyChanged(nameof(FileList));
+                });
+            }           
         }
 
         public IEnumerable<Folder> FolderList => _fileAndFolderBrowserViewModel.FolderList;
@@ -66,7 +83,7 @@ namespace FligClient.MasterViewModel
             return files;
         }
 
-        private IList _selectedItems = new ArrayList(); 
+        private IList _selectedItems = new ArrayList();
 
         public IList SelectedItemsList
         {
