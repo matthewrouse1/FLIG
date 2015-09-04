@@ -11,5 +11,17 @@
     <Setting Name="WebApiPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://localhost:18777/</Value>
     </Setting>
+    <Setting Name="RepoUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="EmailAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Entropy" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -72,6 +72,7 @@
     <Compile Include="FileBrowsing\IFileAndFolderBrowserModel.cs" />
     <Compile Include="FileLocking\UserInfo.cs" />
     <Compile Include="Git\GitModel.cs" />
+    <Compile Include="Git\GitViewModel.cs" />
     <Compile Include="Providers\SettingsProvider.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using LibGit2Sharp;
@@ -10,6 +11,9 @@ namespace FligClient.Git
     public class GitViewModel
     {
         private GitModel _gitModel;
+
+        public GitViewModel() : this (new GitModel(UserInfo.Username, UserInfo.EmailAddress, UserInfo.Password, UserInfo.RepoDir, UserInfo.RepoUrl))
+        { }
 
         public GitViewModel(GitModel gitModel)
         {
