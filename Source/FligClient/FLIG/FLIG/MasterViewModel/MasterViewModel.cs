@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using FligClient.Annotations;
 using FligClient.FileBrowsing;
+using FligClient.Git;
 
 namespace FligClient.MasterViewModel
 {
@@ -19,14 +20,16 @@ namespace FligClient.MasterViewModel
     {
         private LockedFilesViewModel _lockedFilesViewModel;
         private FileAndFolderBrowserViewModel _fileAndFolderBrowserViewModel;
+        private GitViewModel _gitViewModel;
 
-        public MasterViewModel() : this(new FileAndFolderBrowserViewModel(), new LockedFilesViewModel())
+        public MasterViewModel() : this(new FileAndFolderBrowserViewModel(), new LockedFilesViewModel(), new GitViewModel())
         { }
 
-        public MasterViewModel(FileAndFolderBrowserViewModel fileAndFolderBrowserViewModel, LockedFilesViewModel lockedFilesViewModel)
+        public MasterViewModel(FileAndFolderBrowserViewModel fileAndFolderBrowserViewModel, LockedFilesViewModel lockedFilesViewModel, GitViewModel gitViewModel)
         {
             _lockedFilesViewModel = lockedFilesViewModel;
             _fileAndFolderBrowserViewModel = fileAndFolderBrowserViewModel;
+            _gitViewModel = gitViewModel;
 
             // Used to refresh the files/folders that exist on the serevr after git has pulled/pushed new ones
             //new Task(() =>
@@ -64,6 +67,13 @@ namespace FligClient.MasterViewModel
             {
                 return new DelegateCommand(() =>
                 {
+                    _gitViewModel.FilesToStage = (((List<File>)SelectedItemsList).Select(x => x.Name)).ToList();
+                    _gitViewModel.Add();
+                    _gitViewModel.CommitMessage = "Test Commit Message";
+                    _gitViewModel.Commit();
+                    _gitViewModel.Pull();
+                    _gitViewModel.Push();
+
                     foreach (var file in SelectedItemsList)
                     {
                         _lockedFilesViewModel.CurrentFile = ((File)file).Name;
