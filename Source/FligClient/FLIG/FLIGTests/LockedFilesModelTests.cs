@@ -11,14 +11,12 @@ namespace GivenARequest
     {
         private string aFakeFile;
         private LockedFilesModel lockedFileModel;
-        private UserInfo userInfo;
 
         public WhentheRequestIsValid()
         {
-            userInfo = new UserInfo();
-            userInfo.Username = "matt";
+            UserInfo.Username = "matt";
             aFakeFile = "testFile.txt";
-            lockedFileModel = new LockedFilesModel(TestHelper.SetupIRestClientMock(ResponseStatus.Completed, aFakeFile).Object, userInfo);
+            lockedFileModel = new LockedFilesModel(TestHelper.SetupIRestClientMock(ResponseStatus.Completed, aFakeFile).Object);
         }
 
         [Fact]
@@ -44,14 +42,12 @@ namespace GivenARequest
     {
         private string aFakeFile;
         private LockedFilesModel lockedFileModel;
-        private UserInfo userInfo;
 
         public WhenTheRequestIsInvalid()
         {
-            userInfo = new UserInfo();
-            userInfo.Username = "matt";
+            UserInfo.Username = "matt";
             aFakeFile = "testFile.txt";
-            lockedFileModel = new LockedFilesModel(TestHelper.SetupIRestClientMock(ResponseStatus.Error, aFakeFile).Object, userInfo);
+            lockedFileModel = new LockedFilesModel(TestHelper.SetupIRestClientMock(ResponseStatus.Error, aFakeFile).Object);
         }
 
         [Fact]

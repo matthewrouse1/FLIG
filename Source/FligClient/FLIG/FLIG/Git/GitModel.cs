@@ -5,6 +5,8 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using LibGit2Sharp;
+using LibGit2Sharp.Handlers;
 
 namespace FligClient.Git
 {
@@ -24,17 +26,18 @@ namespace FligClient.Git
 
             private void setupOptions(string Username, SecureString SecurePassword, string RepoPath, string RepoUrl)
             {
-                credentials = new SecureUsernamePasswordCredentials() { Username = Username, Password = SecurePassword };
-                var credentialsProvider = new CredentialsHandler((_url, _user, _cred) => new SecureUsernamePasswordCredentials
-                {
-                    Username = Username,
-                    Password = SecurePassword
-                });
-                fetchOptions = new FetchOptions() { CredentialsProvider = credentialsProvider };
-                pullOptions = new PullOptions() { FetchOptions = fetchOptions };
-                pushOptions = new PushOptions() { CredentialsProvider = credentialsProvider };
-                cloneOptions = new CloneOptions() { CredentialsProvider = credentialsProvider };
-                statusOptions = new StatusOptions() { ExcludeSubmodules = true, IncludeUnaltered = false };
+                credentials = new SecureUsernamePasswordCredentials() {Username = Username, Password = SecurePassword};
+                var credentialsProvider =
+                    new CredentialsHandler((_url, _user, _cred) => new SecureUsernamePasswordCredentials
+                    {
+                        Username = Username,
+                        Password = SecurePassword
+                    });
+                fetchOptions = new FetchOptions() {CredentialsProvider = credentialsProvider};
+                pullOptions = new PullOptions() {FetchOptions = fetchOptions};
+                pushOptions = new PushOptions() {CredentialsProvider = credentialsProvider};
+                cloneOptions = new CloneOptions() {CredentialsProvider = credentialsProvider};
+                statusOptions = new StatusOptions() {ExcludeSubmodules = true, IncludeUnaltered = false};
             }
 
             private void setSignature(string Username, string EmailAddress)
@@ -47,7 +50,9 @@ namespace FligClient.Git
                 return LibGit2Sharp.Repository.Clone(Url, CloneToDirectory, this.cloneOptions);
             }
 
-            public Git(string Username, string EmailAddress, SecureString Password, string RepoPath = @"C:\repos\formsLibrary", string RepoUrl = "http://github.com/AdvancedLegal/FormsLibrary")
+            public Git(string Username, string EmailAddress, SecureString Password,
+                string RepoPath = @"C:\repos\formsLibrary",
+                string RepoUrl = "http://github.com/AdvancedLegal/FormsLibrary")
             {
                 // Password should be in the form of:
                 // var password = new System.Security.SecureString();
@@ -76,7 +81,7 @@ namespace FligClient.Git
 
             public void Push(Branch Branch = null)
             {
-                Branch = Branch == null ? this.repository.Branches["master"] : Branch;
+                Branch = Branch ?? this.repository.Branches["master"];
                 this.repository.Network.Push(Branch, this.pushOptions);
             }
 
@@ -85,4 +90,5 @@ namespace FligClient.Git
                 return this.repository.RetrieveStatus(statusOptions);
             }
         }
+    }
 }
