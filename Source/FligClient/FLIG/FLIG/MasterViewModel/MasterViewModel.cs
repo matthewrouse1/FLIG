@@ -27,6 +27,19 @@ namespace FligClient.MasterViewModel
         {
             _lockedFilesViewModel = lockedFilesViewModel;
             _fileAndFolderBrowserViewModel = fileAndFolderBrowserViewModel;
+
+            // Used to refresh the files/folders that exist on the serevr after git has pulled/pushed new ones
+            //new Task(() =>
+            //{
+            //    while (true)
+            //    {
+            //        var selectedFolder = SelectedFolder;
+            //        _fileAndFolderBrowserViewModel.UpdateFilesAndFolders();
+            //        SelectedFolder = selectedFolder;
+            //        OnPropertyChanged(nameof(FolderList));
+            //        System.Threading.Thread.Sleep(10000);
+            //    }
+            //}).Start();
         }
 
         public ICommand CheckoutCommand

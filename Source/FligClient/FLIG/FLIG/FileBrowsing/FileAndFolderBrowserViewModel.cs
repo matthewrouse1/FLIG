@@ -41,6 +41,9 @@ namespace FligClient.FileBrowsing
             }
             set
             {
+                if (value == null)
+                    return;
+
                 selectedFolder = value;
                 _fileAndFolderBrowserModel.CurrentlySelectedPath = value.Path;
                 FileList = _fileAndFolderBrowserModel.FileList;
@@ -81,6 +84,12 @@ namespace FligClient.FileBrowsing
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void UpdateFilesAndFolders()
+        {
+            FileList = _fileAndFolderBrowserModel.FileList;
+            FolderList = _fileAndFolderBrowserModel.FolderList;
         }
     }
 

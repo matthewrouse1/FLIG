@@ -16,7 +16,7 @@ namespace FligClient.FileBrowsing
             {
                 return new Collection<Folder>()
                 {
-                    AddFolderRecursive(new Folder() {Name = "Home", Path = @"C:\repos\alb"})
+                    AddFolderRecursive(new Folder() {Name = "Home", Path = UserInfo.RepoDir})
                 };
             }
         }
@@ -27,7 +27,7 @@ namespace FligClient.FileBrowsing
             {
                 var fileCollection = new Collection<File>();
 
-                foreach (var file in Directory.GetFiles(CurrentlySelectedPath))
+                foreach (var file in Directory.GetFiles(CurrentlySelectedPath ?? UserInfo.RepoDir))
                 {
                     fileCollection.Add(new File() { Name = file} );
                 }

@@ -2,21 +2,21 @@
 
 namespace FligClient
 {
-    public class UserInfo
+    public static class UserInfo
     {
-        public string Username
+        public static string Username
         {
             get { return SettingsProvider.Get(nameof(Username)); }
             set { SettingsProvider.Set(nameof(Username), value); }
         }
 
-        public string RepoDir
+        public static string RepoDir
         {
             get { return SettingsProvider.Get(nameof(RepoDir)); }
             set { SettingsProvider.Set(nameof(RepoDir), value); }
         }
 
-        public string WebApiPath
+        public static string WebApiPath
         {
             get { return SettingsProvider.Get(nameof(WebApiPath)); }
             set { SettingsProvider.Set(nameof(WebApiPath), value); }

@@ -12,21 +12,19 @@ namespace FligClient
     {
 
         public IRestClient _apiClient;
-        private UserInfo _userInfo;
 
         private string LockApiRequest = @"/flig/lock/{user}/{file}";
         private string OverrideApiRequest = @"/flig/override/{user}/{file}";
         private string UnlockApiRequest = @"/flig/unlock/{user}/{file}";
         private string CheckApiRequest = @"/flig/check/{file}";
 
-        public LockedFilesModel() : this(new RestClient(), new UserInfo())
+        public LockedFilesModel() : this(new RestClient())
         { }
 
-        public LockedFilesModel(IRestClient apiClient, UserInfo userInfo)
+        public LockedFilesModel(IRestClient apiClient)
         {
-            _userInfo = userInfo;
             _apiClient = apiClient;
-            _apiClient.BaseUrl = new Uri(_userInfo.WebApiPath);
+            _apiClient.BaseUrl = new Uri(UserInfo.WebApiPath);
         }
 
         public bool LockFile(string filename)
@@ -41,7 +39,7 @@ namespace FligClient
 
         private string EncodeFilename(string filename)
         {
-            return filename.Replace(_userInfo.RepoDir, "").Replace(@"\", "");
+            return filename.Replace(UserInfo.RepoDir, "").Replace(@"\", "");
         }
 
         // Special case so the restclient request has to go straight to the implementation
@@ -59,7 +57,7 @@ namespace FligClient
         private IRestResponse ExecuteWebRequest(string apiLocation, string filename)
         {
             var request = new RestRequest(apiLocation, Method.GET);
-            request.AddParameter("user", _userInfo.Username, ParameterType.UrlSegment);
+            request.AddParameter("user", UserInfo.Username, ParameterType.UrlSegment);
             request.AddParameter("file", EncodeFilename(filename), ParameterType.UrlSegment);
             return _apiClient.Execute(request);            
         }
