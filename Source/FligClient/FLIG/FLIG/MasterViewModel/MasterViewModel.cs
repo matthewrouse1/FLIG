@@ -62,6 +62,28 @@ namespace FligClient.MasterViewModel
             }
         }
 
+        public ICommand UndoCheckoutCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    
+                });
+            }
+        }
+
+        public ICommand PullCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    _gitViewModel.Pull();
+                });
+            }
+        }
+
         public ICommand CheckoutCommand
         {
             get
