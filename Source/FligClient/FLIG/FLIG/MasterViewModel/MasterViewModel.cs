@@ -51,6 +51,8 @@ namespace FligClient.MasterViewModel
             {
                 return new DelegateCommand(() =>
                 {
+                    _gitViewModel.Pull();
+
                     foreach (var file in SelectedItemsList)
                     {
                         _lockedFilesViewModel.CurrentFile = ((File)file).Name;
