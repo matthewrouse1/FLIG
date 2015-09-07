@@ -111,5 +111,10 @@ namespace FligClient.Git
         {
             return this.repository.RetrieveStatus(statusOptions);
         }
+
+        public void Reset(List<string> files)
+        {
+            repository.CheckoutPaths("master", files, new CheckoutOptions() { CheckoutModifiers = CheckoutModifiers.Force } );
+        }
     }
 }

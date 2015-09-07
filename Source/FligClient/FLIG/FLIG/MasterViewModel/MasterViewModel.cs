@@ -9,9 +9,11 @@ using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using FligClient.Annotations;
+using FligClient.CommitViewModel;
 using FligClient.FileBrowsing;
 using FligClient.Git;
 
@@ -62,13 +64,31 @@ namespace FligClient.MasterViewModel
             }
         }
 
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    _fileAndFolderBrowserViewModel.RefreshFolders();
+                    OnPropertyChanged(nameof(FolderList));
+                    SelectedFolder = SelectedFolder;
+                });
+            }
+        }
+
         public ICommand UndoCheckoutCommand
         {
             get
             {
                 return new DelegateCommand(() =>
                 {
-                    
+                    var result = MessageBox.Show("Are sure you want to discard changes to all selected files",
+                        "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Asterisk, MessageBoxResult.No);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _gitViewModel.ResetFiles(SelectedItemsList);
+                    }
                 });
             }
         }
@@ -108,12 +128,8 @@ namespace FligClient.MasterViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    _gitViewModel.FilesToStage = (from object file in SelectedItemsList select ((File)file).Name).ToList();
-                    _gitViewModel.Add();
-                    _gitViewModel.CommitMessage = "Test Commit Message";
-                    _gitViewModel.Commit();
-                    _gitViewModel.Pull();
-                    _gitViewModel.Push();
+                    var commitView = new CommitView(_gitViewModel, SelectedItemsList);
+                    commitView.ShowDialog();
 
                     foreach (var file in SelectedItemsList)
                     {

@@ -67,6 +67,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommitViewModel\CommitView.xaml.cs">
+      <DependentUpon>CommitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommitViewModel\CommitViewModel.cs" />
     <Compile Include="DependencyProperties\CustomDataGrid.cs" />
     <Compile Include="FileBrowsing\FileAndFolderBrowserModel.cs" />
     <Compile Include="FileBrowsing\FileAndFolderBrowserViewModel.cs" />
@@ -76,6 +80,10 @@
     <Compile Include="Git\GitViewModel.cs" />
     <Compile Include="Providers\SettingsProvider.cs" />
     <Compile Include="Settings.cs" />
+    <Page Include="CommitViewModel\CommitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

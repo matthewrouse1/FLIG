@@ -1,0 +1,25 @@
+﻿<Window x:Class="FligClient.CommitViewModel.CommitView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FligClient.CommitViewModel"
+        mc:Ignorable="d"
+        Title="CommitView" Height="210" Width="382"
+        MinHeight="210" MinWidth="382"
+        MaxHeight="210" MaxWidth="382">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="145"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding Path=CommitMessage}" Margin="5,5,10,10" IsEnabled="True" Grid.ColumnSpan="2" />
+        <Button Grid.Column="1" Grid.Row="1" Name="btnCommit" Content="Commit files" Command="{Binding Path=CommitCommand}"/>
+    </Grid>
+</Window>

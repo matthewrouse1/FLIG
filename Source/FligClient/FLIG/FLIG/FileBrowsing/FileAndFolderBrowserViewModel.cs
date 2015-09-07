@@ -69,11 +69,16 @@ namespace FligClient.FileBrowsing
         {
         }
 
+        public void RefreshFolders()
+        {
+            FolderList = _fileAndFolderBrowserModel.FolderList;
+        }
+
         public FileAndFolderBrowserViewModel(IFileAndFolderBrowserModel fileAndFolderBrowserModel)
         {
             _fileAndFolderBrowserModel = fileAndFolderBrowserModel;
 
-            folderList = _fileAndFolderBrowserModel.FolderList;
+            RefreshFolders();
 
             FileList = new Collection<File>();
         }

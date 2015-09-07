@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using FligClient.FileBrowsing;
 using LibGit2Sharp;
 
 namespace FligClient.Git
@@ -57,6 +59,11 @@ namespace FligClient.Git
         public void Push()
         {
             _gitModel.Push();
+        }
+
+        public void ResetFiles(IList selectedItemsList)
+        {
+            _gitModel.Reset((from object file in selectedItemsList select ((File) file).Name).ToList());
         }
     }
 }
