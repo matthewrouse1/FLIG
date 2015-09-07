@@ -24,6 +24,7 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_Exit" Command="{Binding ExitCommand}" />
             </MenuItem>    
+            <MenuItem Header="_Settings" Command="{Binding SettingsCommand}" />
         </Menu>
         <dependencyProperties:CustomDataGrid x:Name="dataGrid" ItemsSource="{Binding FileList}" 
                   Grid.Column="1" Grid.Row="1" 

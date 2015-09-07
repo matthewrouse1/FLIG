@@ -16,6 +16,7 @@ using FligClient.Annotations;
 using FligClient.CommitViewModel;
 using FligClient.FileBrowsing;
 using FligClient.Git;
+using FligClient.SettingsViewModel;
 
 namespace FligClient.MasterViewModel
 {
@@ -118,6 +119,18 @@ namespace FligClient.MasterViewModel
                         _lockedFilesViewModel.CheckoutCommand.Execute(null);
                     }
                     OnPropertyChanged(nameof(FileList));
+                });
+            }
+        }
+
+        public ICommand SettingsCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    var settingsView = new SettingsView();
+                    settingsView.ShowDialog();
                 });
             }
         }
