@@ -25,7 +25,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Matt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("matthewrouse1")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -37,7 +37,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\repos\\alb")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\repos\\TestRepo")]
         public string RepoDir {
             get {
                 return ((string)(this["RepoDir"]));
@@ -61,7 +61,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://github.com/matthewrouse1/TestRepo.git")]
         public string RepoUrl {
             get {
                 return ((string)(this["RepoUrl"]));
@@ -73,7 +73,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("matthew.rouse@AdvancedComputerSoftware.com")]
         public string EmailAddress {
             get {
                 return ((string)(this["EmailAddress"]));

@@ -91,8 +91,19 @@ namespace FligClient.Git
             files.ForEach((file => this.repository.Stage(file)));
         }
 
+        private bool AnyChangedFiles()
+        {
+            var status = repository.RetrieveStatus(new StatusOptions());
+            if (status.Staged.Any())
+                return true;
+            return false;
+        }
+
         public void Commit(string message)
         {
+            if (!AnyChangedFiles())
+                return;
+
             this.repository.Commit(message);
         }
 

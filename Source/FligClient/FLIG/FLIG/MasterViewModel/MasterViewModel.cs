@@ -67,7 +67,7 @@ namespace FligClient.MasterViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    _gitViewModel.FilesToStage = (((List<File>)SelectedItemsList).Select(x => x.Name)).ToList();
+                    _gitViewModel.FilesToStage = (from object file in SelectedItemsList select ((File)file).Name).ToList();
                     _gitViewModel.Add();
                     _gitViewModel.CommitMessage = "Test Commit Message";
                     _gitViewModel.Commit();

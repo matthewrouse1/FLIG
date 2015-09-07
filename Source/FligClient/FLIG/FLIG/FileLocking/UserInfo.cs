@@ -60,13 +60,16 @@ namespace FligClient
             {
                 var entropy = CheckEntropy();
                 var secure = new SecureString();
+
+                if (string.IsNullOrEmpty(SettingsProvider.Get("Password")))
+                    return secure;
+
                 foreach (var c in Convert.ToBase64String(ProtectedData.Unprotect(Convert.FromBase64String(SettingsProvider.Get("Password")), entropy, DataProtectionScope.CurrentUser)))
                 {
                     secure.AppendChar(c);
                 }
                 return secure;
             }
-            set { throw new Exception("Canot set the password from this, use the \"SetPassword\" method instead."); }
         }
 
         public static void SetPassword(string value)
