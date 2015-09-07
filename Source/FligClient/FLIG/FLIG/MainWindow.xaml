@@ -37,6 +37,7 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="View/Edit..." Command="{Binding Path=EditCommand}"/>
                     <MenuItem Header="Checkout" Command="{Binding Path=CheckoutCommand}"/>
                     <MenuItem Header="Checkin" Command="{Binding Path=CheckinCommand}"/>
                 </ContextMenu>  

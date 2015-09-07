@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security;
@@ -43,6 +44,22 @@ namespace FligClient.MasterViewModel
             //        System.Threading.Thread.Sleep(10000);
             //    }
             //}).Start();
+        }
+
+        public ICommand EditCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    if (SelectedItemsList == null || SelectedItemsList.Count == 0)
+                        return;
+                    new Task(() =>
+                    {
+                        Process.Start(((File) SelectedItemsList[0]).Name);
+                    }).Start();
+                });
+            }
         }
 
         public ICommand CheckoutCommand
