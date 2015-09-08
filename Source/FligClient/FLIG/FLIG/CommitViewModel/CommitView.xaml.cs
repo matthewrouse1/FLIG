@@ -31,6 +31,10 @@ namespace FligClient.CommitViewModel
             var commitViewModel = new CommitViewModel();
             commitViewModel._gitViewModel = gitViewModel;
             commitViewModel._selectedFiles = selectedFiles;
+            commitViewModel.CloseAction = () =>
+            {
+                this.Close();
+            };
             this.DataContext = commitViewModel;
             InitializeComponent();
         }

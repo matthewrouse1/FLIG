@@ -2,6 +2,7 @@
 using System.Dynamic;
 using System.Security;
 using System.Security.Cryptography;
+using System.Text;
 using FligClient.Providers;
 
 namespace FligClient
@@ -60,12 +61,13 @@ namespace FligClient
             get
             {
                 var entropy = CheckEntropy();
+
                 var secure = new SecureString();
 
                 if (string.IsNullOrEmpty(SettingsProvider.Get("Password")))
                     return secure;
 
-                foreach (var c in Convert.ToBase64String(ProtectedData.Unprotect(Convert.FromBase64String(SettingsProvider.Get("Password")), entropy, DataProtectionScope.CurrentUser)))
+                foreach (var c in Encoding.UTF8.GetString((ProtectedData.Unprotect(Convert.FromBase64String(SettingsProvider.Get("Password")), entropy, DataProtectionScope.CurrentUser))))
                 {
                     secure.AppendChar(c);
                 }
@@ -76,7 +78,10 @@ namespace FligClient
         public static void SetPassword(string value)
         {
             var entropy = CheckEntropy();
-            SettingsProvider.Set("Password", Convert.ToBase64String(ProtectedData.Protect(Convert.FromBase64String(value), entropy, DataProtectionScope.CurrentUser)));
+
+            var byteString = Encoding.UTF8.GetBytes(value);
+
+            SettingsProvider.Set("Password", Convert.ToBase64String(ProtectedData.Protect(byteString, entropy, DataProtectionScope.CurrentUser)));
         }
 
         public static string RepoUrl

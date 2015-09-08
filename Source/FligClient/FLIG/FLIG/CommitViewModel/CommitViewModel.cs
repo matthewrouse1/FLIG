@@ -23,6 +23,8 @@ namespace FligClient.CommitViewModel
             commitMessage = "Enter Commit Message here:";
         }
 
+        public Action CloseAction { get; set; }
+
         public ICommand CommitCommand
         {
             get
@@ -35,6 +37,7 @@ namespace FligClient.CommitViewModel
                     _gitViewModel.Commit();
                     _gitViewModel.Pull();
                     _gitViewModel.Push();
+                    CloseAction();
                 });
             }
         }

@@ -34,7 +34,7 @@ namespace FligClient.SettingsViewModel
         // Needs a "has changed" flag
         public string Password
         {
-            get { return string.Empty; }
+            get { return password; }
             set
             {
                 password = value;
