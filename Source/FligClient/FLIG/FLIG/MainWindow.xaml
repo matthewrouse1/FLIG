@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:dependencyProperties="clr-namespace:FligClient.DependencyProperties"
         xmlns:lockingVM="clr-namespace:FligClient"
-        Title="MainWindow" Height="571.235" Width="715.964">
+        Title="FLIG" Height="571.235" Width="715.964">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="290"/>

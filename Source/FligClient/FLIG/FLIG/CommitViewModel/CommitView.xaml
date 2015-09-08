@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FligClient.CommitViewModel"
         mc:Ignorable="d"
-        Title="CommitView" Height="210" Width="382"
+        Title="Check in files" Height="210" Width="382"
         MinHeight="210" MinWidth="382"
         MaxHeight="210" MaxWidth="382">
     <Grid>
