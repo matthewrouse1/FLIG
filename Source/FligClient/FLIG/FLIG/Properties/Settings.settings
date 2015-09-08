@@ -3,19 +3,19 @@
   <Profiles />
   <Settings>
     <Setting Name="Username" Type="System.String" Scope="User">
-      <Value Profile="(Default)">matthewrouse1</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="RepoDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\repos\TestRepo</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="WebApiPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost:18777/</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="RepoUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://github.com/matthewrouse1/TestRepo.git</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="EmailAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">matthew.rouse@AdvancedComputerSoftware.com</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

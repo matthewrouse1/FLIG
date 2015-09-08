@@ -31,9 +31,9 @@ namespace FligClient.MasterViewModel
 
         public MasterViewModel(FileAndFolderBrowserViewModel fileAndFolderBrowserViewModel, LockedFilesViewModel lockedFilesViewModel, GitViewModel gitViewModel)
         {
+            _gitViewModel = gitViewModel;
             _lockedFilesViewModel = lockedFilesViewModel;
             _fileAndFolderBrowserViewModel = fileAndFolderBrowserViewModel;
-            _gitViewModel = gitViewModel;
 
             // Used to refresh the files/folders that exist on the serevr after git has pulled/pushed new ones
             //new Task(() =>

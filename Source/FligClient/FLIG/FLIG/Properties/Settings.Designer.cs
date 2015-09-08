@@ -25,7 +25,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("matthewrouse1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -37,7 +37,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\repos\\TestRepo")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string RepoDir {
             get {
                 return ((string)(this["RepoDir"]));
@@ -49,7 +49,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:18777/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string WebApiPath {
             get {
                 return ((string)(this["WebApiPath"]));
@@ -61,7 +61,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://github.com/matthewrouse1/TestRepo.git")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string RepoUrl {
             get {
                 return ((string)(this["RepoUrl"]));
@@ -73,7 +73,7 @@ namespace FligClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("matthew.rouse@AdvancedComputerSoftware.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string EmailAddress {
             get {
                 return ((string)(this["EmailAddress"]));

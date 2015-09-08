@@ -13,6 +13,15 @@ namespace FligClient.SettingsViewModel
 {
     public class SettingsViewModel : INotifyPropertyChanged
     {
+        public SettingsViewModel()
+        {
+            Username = UserInfo.Username;
+            EmailAddress = UserInfo.EmailAddress;
+            WebApiPath = UserInfo.WebApiPath;
+            RepoDir = UserInfo.RepoDir;
+            RepoUrl = UserInfo.RepoUrl;
+        }
+
         private string username { get; set; }
         private string password { get; set; }
         private string emailaddress { get; set; }
@@ -22,7 +31,7 @@ namespace FligClient.SettingsViewModel
 
         public string Username
         {
-            get { return UserInfo.Username; }
+            get { return username; }
             set
             {
                 username = value;
@@ -44,17 +53,17 @@ namespace FligClient.SettingsViewModel
 
         public string EmailAddress
         {
-            get { return UserInfo.EmailAddress;  }
+            get { return emailaddress;  }
             set
             {
-                emailaddress = EmailAddress;
+                emailaddress = value;
                 OnPropertyChanged(nameof(EmailAddress));
             }
         }
 
         public string WebApiPath
         {
-            get { return UserInfo.WebApiPath; }
+            get { return webapiurl; }
             set
             {
                 webapiurl = value;
@@ -64,7 +73,7 @@ namespace FligClient.SettingsViewModel
 
         public string RepoDir
         {
-            get { return UserInfo.RepoDir; }
+            get { return repodir; }
             set
             {
                 repodir = value;
@@ -74,7 +83,7 @@ namespace FligClient.SettingsViewModel
 
         public string RepoUrl
         {
-            get { return UserInfo.RepoUrl; }
+            get { return repourl; }
             set
             {
                 repourl = value;
