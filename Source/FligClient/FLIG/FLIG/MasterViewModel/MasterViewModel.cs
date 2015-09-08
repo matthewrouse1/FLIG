@@ -26,10 +26,10 @@ namespace FligClient.MasterViewModel
         private FileAndFolderBrowserViewModel _fileAndFolderBrowserViewModel;
         private GitViewModel _gitViewModel;
 
-        public MasterViewModel() : this(new FileAndFolderBrowserViewModel(), new LockedFilesViewModel(), new GitViewModel())
+        public MasterViewModel() : this(new GitViewModel(), new FileAndFolderBrowserViewModel(), new LockedFilesViewModel())
         { }
 
-        public MasterViewModel(FileAndFolderBrowserViewModel fileAndFolderBrowserViewModel, LockedFilesViewModel lockedFilesViewModel, GitViewModel gitViewModel)
+        public MasterViewModel(GitViewModel gitViewModel, FileAndFolderBrowserViewModel fileAndFolderBrowserViewModel, LockedFilesViewModel lockedFilesViewModel)
         {
             _gitViewModel = gitViewModel;
             _lockedFilesViewModel = lockedFilesViewModel;

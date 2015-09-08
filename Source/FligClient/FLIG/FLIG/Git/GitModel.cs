@@ -52,10 +52,6 @@ namespace FligClient.Git
             string RepoPath,
             string RepoUrl = "http://github.com/AdvancedLegal/FormsLibrary")
         {
-            // Password should be in the form of:
-            // var password = new System.Security.SecureString();
-            // "Welcome4".ToCharArray().ToList().ForEach(c => password.AppendChar(c));
-
             this.setupOptions(Username, Password, RepoPath, RepoUrl);
 
             this.setSignature(Username, EmailAddress);
