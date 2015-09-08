@@ -22,6 +22,7 @@ namespace FligClient.SettingsViewModel
         public SettingsView()
         {
             InitializeComponent();
+            this.DataContext = new SettingsViewModel();
         }
     }
 }

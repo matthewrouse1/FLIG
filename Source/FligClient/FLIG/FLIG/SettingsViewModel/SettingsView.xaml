@@ -29,12 +29,12 @@
         <Label Grid.Column="0" Grid.Row="4" Content="Repository Dir" />
         <Label Grid.Column="0" Grid.Row="5" Content="Repository URL" />
         
-        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Username}" Margin="5" />
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Password}" Margin="5" />
-        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EmailAddress}" Margin="5" />
-        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Path=WebApiPath}" Margin="5" />
-        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Path=RepoDir}" Margin="5" />
-        <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Path=RepoUrl}" Margin="5" />
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Username}" Margin="5" />
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Password}" Margin="5" />
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=EmailAddress}" Margin="5" />
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=WebApiPath}" Margin="5" />
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=RepoDir}" Margin="5" />
+        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=RepoUrl}" Margin="5" />
         
         <Button  Grid.Column="1" Grid.Row="6" Content="Save" Width="150" Margin="5" Command="{Binding Path=SaveCommand}" />
     </Grid>

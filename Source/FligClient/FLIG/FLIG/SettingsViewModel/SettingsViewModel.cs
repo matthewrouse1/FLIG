@@ -22,7 +22,7 @@ namespace FligClient.SettingsViewModel
 
         public string Username
         {
-            get { return username; }
+            get { return UserInfo.Username; }
             set
             {
                 username = value;
@@ -30,9 +30,11 @@ namespace FligClient.SettingsViewModel
             }
         }
 
+
+        // Needs a "has changed" flag
         public string Password
         {
-            get { return password; }
+            get { return string.Empty; }
             set
             {
                 password = value;
@@ -42,7 +44,7 @@ namespace FligClient.SettingsViewModel
 
         public string EmailAddress
         {
-            get { return emailaddress;  }
+            get { return UserInfo.EmailAddress;  }
             set
             {
                 emailaddress = EmailAddress;
@@ -50,19 +52,19 @@ namespace FligClient.SettingsViewModel
             }
         }
 
-        public string WebApiUrl
+        public string WebApiPath
         {
-            get { return webapiurl; }
+            get { return UserInfo.WebApiPath; }
             set
             {
                 webapiurl = value;
-                OnPropertyChanged(nameof(WebApiUrl));
+                OnPropertyChanged(nameof(WebApiPath));
             }
         }
 
         public string RepoDir
         {
-            get { return repodir; }
+            get { return UserInfo.RepoDir; }
             set
             {
                 repodir = value;
@@ -72,7 +74,7 @@ namespace FligClient.SettingsViewModel
 
         public string RepoUrl
         {
-            get { return repourl; }
+            get { return UserInfo.RepoUrl; }
             set
             {
                 repourl = value;
@@ -87,11 +89,12 @@ namespace FligClient.SettingsViewModel
                 return new DelegateCommand((() =>
                 {
                     UserInfo.Username = Username;
-                    UserInfo.SetPassword(Password);
+                    if (!string.IsNullOrEmpty(Password))
+                        UserInfo.SetPassword(Password);
                     UserInfo.EmailAddress = EmailAddress;
                     UserInfo.RepoDir = RepoDir;
                     UserInfo.RepoUrl = RepoUrl;
-                    UserInfo.WebApiPath = WebApiUrl;
+                    UserInfo.WebApiPath = WebApiPath;
                 }));
             }
         }
