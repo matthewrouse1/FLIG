@@ -40,25 +40,25 @@ namespace FligClient.Git
 
         private void setSignature(string Username, string EmailAddress)
         {
-            this.signature = new Signature(Username, EmailAddress, DateTimeOffset.Now);
+            signature = new Signature(Username, EmailAddress, DateTimeOffset.Now);
         }
 
         public string CloneRepo(string Url, string CloneToDirectory)
         {
-            return LibGit2Sharp.Repository.Clone(Url, CloneToDirectory, this.cloneOptions);
+            return LibGit2Sharp.Repository.Clone(Url, CloneToDirectory, cloneOptions);
         }
 
         public GitModel(string Username, string EmailAddress, SecureString Password,
             string RepoPath,
             string RepoUrl = "http://github.com/AdvancedLegal/FormsLibrary")
         {
-            this.setupOptions(Username, Password, RepoPath, RepoUrl);
+            setupOptions(Username, Password, RepoPath, RepoUrl);
 
-            this.setSignature(Username, EmailAddress);
+            setSignature(Username, EmailAddress);
 
             if (!Directory.Exists(RepoPath))
             {
-                this.CloneRepo(RepoUrl, RepoPath);
+                CloneRepo(RepoUrl, RepoPath);
             }
 
             if (string.IsNullOrEmpty(RepoPath))
@@ -67,24 +67,24 @@ namespace FligClient.Git
             if (!RepoPath.EndsWith("\\.git\\"))
                 RepoPath += "\\.git\\";
 
-            this.repository = new Repository(RepoPath);
+            repository = new Repository(RepoPath);
 
         }
 
         public MergeResult Pull()
         {
-            return this.repository.Network.Pull(this.signature, this.pullOptions);
+            return repository.Network.Pull(signature, pullOptions);
         }
 
         public void Push(Branch Branch = null)
         {
-            Branch = Branch ?? this.repository.Branches["master"];
-            this.repository.Network.Push(Branch, this.pushOptions);
+            Branch = Branch ?? repository.Branches["master"];
+            repository.Network.Push(Branch, pushOptions);
         }
 
         public void Add(List<string> files)
         {
-            files.ForEach((file => this.repository.Stage(file)));
+            files.ForEach((file => repository.Stage(file)));
         }
 
         private bool AnyChangedFiles()
@@ -100,12 +100,12 @@ namespace FligClient.Git
             if (!AnyChangedFiles())
                 return;
 
-            this.repository.Commit(message);
+            repository.Commit(message);
         }
 
         public RepositoryStatus Status()
         {
-            return this.repository.RetrieveStatus(statusOptions);
+            return repository.RetrieveStatus(statusOptions);
         }
 
         public void Reset(List<string> files)
