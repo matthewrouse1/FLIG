@@ -52,9 +52,13 @@
         <DockPanel Grid.Column="0" Grid.Row="1">
             <TreeView ItemsSource="{Binding FolderList}" SelectedItemChanged="TreeView_OnSelectedItemChanged" x:Name="treeView" Margin="10,10,10,10">
                 <TreeView.Resources>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="{x:Type fileBrowsing:Folder}">
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" DataType="{x:Type fileBrowsing:FligFolder}">
                         <TreeViewItem Header="{Binding Path=Name}" />
                     </HierarchicalDataTemplate>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    </Style>
                 </TreeView.Resources>
             </TreeView>
         </DockPanel>

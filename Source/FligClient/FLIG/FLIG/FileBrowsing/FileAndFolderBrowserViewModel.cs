@@ -15,14 +15,16 @@ namespace FligClient.FileBrowsing
 {
     public class FileAndFolderBrowserViewModel : INotifyPropertyChanged
     {
-        private IEnumerable<Folder> folderList;
+        private IEnumerable<FligFolder> folderList;
         private IFileAndFolderBrowserModel _fileAndFolderBrowserModel;
 
-        public IEnumerable<Folder> FolderList 
+        public ObservableCollection<FligFolder> FolderList 
         {
             get
             {
-                return folderList;
+                if (folderList == null)
+                    return new ObservableCollection<FligFolder>();
+                return new ObservableCollection<FligFolder>(folderList);
             }
             set
             {
@@ -31,9 +33,9 @@ namespace FligClient.FileBrowsing
             }
         }
 
-        private Folder selectedFolder;
+        private FligFolder selectedFolder;
 
-        public Folder SelectedFolder
+        public FligFolder SelectedFolder
         {
             get
             {
@@ -50,9 +52,9 @@ namespace FligClient.FileBrowsing
             }
         }
 
-        private IEnumerable<File> fileList;
+        private IEnumerable<FligFile> fileList;
 
-        public IEnumerable<File> FileList
+        public IEnumerable<FligFile> FileList
         {
             get
             {
@@ -71,7 +73,27 @@ namespace FligClient.FileBrowsing
 
         public void RefreshFolders()
         {
-            FolderList = _fileAndFolderBrowserModel.FolderList;
+            foreach (var folder in FolderList)
+            {
+                if (_fileAndFolderBrowserModel.ExpandedStates.ContainsKey(folder.Path))
+                {
+                    _fileAndFolderBrowserModel.ExpandedStates[folder.Path] = folder.IsExpanded;
+                }
+                else
+                {
+                    _fileAndFolderBrowserModel.ExpandedStates.Add(folder.Path, folder.IsExpanded);
+                }
+
+                if (_fileAndFolderBrowserModel.SelectedStates.ContainsKey(folder.Path))
+                {
+                    _fileAndFolderBrowserModel.SelectedStates[folder.Path] = folder.IsSelected;
+                }
+                else
+                {
+                    _fileAndFolderBrowserModel.SelectedStates.Add(folder.Path, folder.IsSelected);
+                }
+            }
+            FolderList = new ObservableCollection<FligFolder>(_fileAndFolderBrowserModel.FolderList);
         }
 
         public FileAndFolderBrowserViewModel(IFileAndFolderBrowserModel fileAndFolderBrowserModel)
@@ -80,7 +102,7 @@ namespace FligClient.FileBrowsing
 
             RefreshFolders();
 
-            FileList = new Collection<File>();
+            FileList = new Collection<FligFile>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -94,28 +116,36 @@ namespace FligClient.FileBrowsing
         public void UpdateFilesAndFolders()
         {
             FileList = _fileAndFolderBrowserModel.FileList;
-            FolderList = _fileAndFolderBrowserModel.FolderList;
+            FolderList = new ObservableCollection<FligFolder>(_fileAndFolderBrowserModel.FolderList);
         }
     }
 
-    public class Folder
+    public class FligFolder
     {
-        public Folder()
+        public FligFolder()
         {
-            Children = new List<Folder>();
+            Children = new List<FligFolder>();
         }
 
         public string Path { get; set; }
 
         public string Name { get; set; }
 
-        public List<Folder> Children { get; set; }
+        public List<FligFolder> Children { get; set; }
+
+        public bool IsExpanded { get; set; }
+
+        public bool IsSelected { get; set; }
     }
 
-    public class File
+    public class FligFile
     {
         public string Name { get; set; }
 
         public string LockedOutBy { get; set; }
+
+        public bool IsExpanded { get; set; }
+
+        public bool IsSelected { get; set; }
     }
 }

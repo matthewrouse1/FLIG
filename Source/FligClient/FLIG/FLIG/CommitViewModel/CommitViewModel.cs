@@ -31,7 +31,7 @@ namespace FligClient.CommitViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    _gitViewModel.FilesToStage = (from object file in _selectedFiles select ((File)file).Name).ToList();
+                    _gitViewModel.FilesToStage = (from object file in _selectedFiles select ((FligFile)file).Name).ToList();
                     _gitViewModel.Add();
                     _gitViewModel.CommitMessage = commitMessage;
                     _gitViewModel.Commit();

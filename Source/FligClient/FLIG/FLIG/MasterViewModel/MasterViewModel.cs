@@ -59,7 +59,7 @@ namespace FligClient.MasterViewModel
                         return;
                     new Task(() =>
                     {
-                        Process.Start(((File) SelectedItemsList[0]).Name);
+                        Process.Start(((FligFile) SelectedItemsList[0]).Name);
                     }).Start();
                 });
             }
@@ -73,7 +73,7 @@ namespace FligClient.MasterViewModel
                 {
                     _fileAndFolderBrowserViewModel.RefreshFolders();
                     OnPropertyChanged(nameof(FolderList));
-                    SelectedFolder = SelectedFolder;
+                    //SelectedFolder = SelectedFolder;
                 });
             }
         }
@@ -115,7 +115,7 @@ namespace FligClient.MasterViewModel
 
                     foreach (var file in SelectedItemsList)
                     {
-                        _lockedFilesViewModel.CurrentFile = ((File)file).Name;
+                        _lockedFilesViewModel.CurrentFile = ((FligFile)file).Name;
                         _lockedFilesViewModel.CheckoutCommand.Execute(null);
                     }
                     OnPropertyChanged(nameof(FileList));
@@ -146,7 +146,7 @@ namespace FligClient.MasterViewModel
 
                     foreach (var file in SelectedItemsList)
                     {
-                        _lockedFilesViewModel.CurrentFile = ((File)file).Name;
+                        _lockedFilesViewModel.CurrentFile = ((FligFile)file).Name;
                         _lockedFilesViewModel.UnlockFileCommand.Execute(null);
                     }
                     OnPropertyChanged(nameof(FileList));
@@ -154,11 +154,11 @@ namespace FligClient.MasterViewModel
             }           
         }
 
-        public IEnumerable<Folder> FolderList => _fileAndFolderBrowserViewModel.FolderList;
+        public ObservableCollection<FligFolder> FolderList => _fileAndFolderBrowserViewModel.FolderList;
 
-        public IEnumerable<File> FileList => DecorateFileDetails();
+        public ObservableCollection<FligFile> FileList => DecorateFileDetails();
 
-        private IEnumerable<File> DecorateFileDetails()
+        private ObservableCollection<FligFile> DecorateFileDetails()
         {
             var files = _fileAndFolderBrowserViewModel.FileList.ToList();
 
@@ -173,7 +173,7 @@ namespace FligClient.MasterViewModel
                 file.LockedOutBy = lockedBy;
             }
 
-            return files;
+            return new ObservableCollection<FligFile>(files);
         }
 
         private IList _selectedItems = new ArrayList();
@@ -188,7 +188,7 @@ namespace FligClient.MasterViewModel
             }
         }
 
-        public Folder SelectedFolder
+        public FligFolder SelectedFolder
         {
             get { return _fileAndFolderBrowserViewModel.SelectedFolder; }
             set

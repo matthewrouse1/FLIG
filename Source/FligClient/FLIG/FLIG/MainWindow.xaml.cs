@@ -32,7 +32,7 @@ namespace FLIG
 
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            ((MasterViewModel) DataContext).SelectedFolder = (Folder)e.NewValue;
+            ((MasterViewModel) DataContext).SelectedFolder = (FligFolder)e.NewValue;
         }
     }
 }

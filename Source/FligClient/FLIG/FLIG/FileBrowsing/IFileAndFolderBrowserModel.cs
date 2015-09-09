@@ -1,12 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace FligClient.FileBrowsing
 {
     public interface IFileAndFolderBrowserModel
     {
-        Folder AddFolderRecursive(Folder startingFolder);
-        Collection<Folder> FolderList { get; }
-        Collection<File> FileList { get; }
+        FligFolder AddFolderRecursive(FligFolder startingFolder);
+        Collection<FligFolder> FolderList { get; }
+        Collection<FligFile> FileList { get; }
         string CurrentlySelectedPath { get; set; }
+
+        Dictionary<string, bool> ExpandedStates { get; set; }
+        Dictionary<string, bool> SelectedStates { get; set; }
     }
 }

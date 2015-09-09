@@ -63,7 +63,7 @@ namespace FligClient.Git
 
         public void ResetFiles(IList selectedItemsList)
         {
-            _gitModel.Reset((from object file in selectedItemsList select ((File) file).Name).ToList());
+            _gitModel.Reset((from object file in selectedItemsList select ((FligFile) file).Name).ToList());
         }
     }
 }
