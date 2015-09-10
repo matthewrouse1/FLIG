@@ -12,5 +12,7 @@ namespace FligClient.FileBrowsing
 
         Dictionary<string, bool> ExpandedStates { get; set; }
         Dictionary<string, bool> SelectedStates { get; set; }
+
+        void RefreshFolders(FligFolder startingFolder);
     }
 }

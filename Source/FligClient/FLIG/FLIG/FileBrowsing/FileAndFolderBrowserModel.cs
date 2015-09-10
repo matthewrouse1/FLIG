@@ -12,14 +12,10 @@ namespace FligClient.FileBrowsing
     { 
         public Collection<FligFolder> FolderList
         {
-            get
-            {
-                return new Collection<FligFolder>()
-                {
-                    AddFolderRecursive(new FligFolder() {Name = "Home", Path = UserInfo.RepoDir, IsExpanded = true})
-                };
-            }
+            get { return folderList; }
         }
+
+        public Collection<FligFolder> folderList { get; set; } 
 
         public Collection<FligFile> FileList
         {
@@ -37,7 +33,7 @@ namespace FligClient.FileBrowsing
         }
 
         public Dictionary<string, bool> ExpandedStates { get; set; }
-        public Dictionary<string, bool> SelectedStates { get; set; }  
+        public Dictionary<string, bool> SelectedStates { get; set; } 
 
         public string CurrentlySelectedPath { get; set; }
 
@@ -61,22 +57,57 @@ namespace FligClient.FileBrowsing
                     Path = directory,
                 };
 
-                if (ExpandedStates.ContainsKey(newFolder.Path))
-                    newFolder.IsExpanded = ExpandedStates[newFolder.Path];
-
-                if (SelectedStates.ContainsKey(newFolder.Path))
-                    newFolder.IsSelected = SelectedStates[newFolder.Path];
-
                 startingFolder.Children.Add(AddFolders(newFolder));
             }
 
             return startingFolder;
         }
 
+        private Collection<FligFolder> InitFolders()
+        {
+            return new Collection<FligFolder>()
+                {
+                    AddFolderRecursive(new FligFolder() {Name = "Home", Path = UserInfo.RepoDir, IsExpanded = true, IsSelected = true})
+                };
+        }
+
+        private bool SearchChildrensPaths(FligFolder FolderToSearch, string PathToSearchFor)
+        {
+            if (FolderToSearch.Path == PathToSearchFor)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void RefreshFolders(FligFolder startingFolder)
+        {
+            if (folderList == null)
+                return;
+
+            foreach (var folder in Directory.GetDirectories(startingFolder.Path))
+            {
+                if (SearchChildrensPaths(startingFolder, folder) == false)
+                {
+                    var newFolder = new FligFolder()
+                    {
+                        Name = GetFolderName(folder),
+                        Path = folder
+                    };
+                    startingFolder.Children.Add(
+                        AddFolders(newFolder));
+                    RefreshFolders(newFolder);
+                }
+            }
+        }
+
         public FileAndFolderBrowserModel()
         {
             ExpandedStates = new Dictionary<string, bool>();
             SelectedStates = new Dictionary<string, bool>();
+
+            folderList = InitFolders();
         }
     }
 }

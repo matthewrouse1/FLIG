@@ -73,26 +73,30 @@ namespace FligClient.FileBrowsing
 
         public void RefreshFolders()
         {
-            foreach (var folder in FolderList)
-            {
-                if (_fileAndFolderBrowserModel.ExpandedStates.ContainsKey(folder.Path))
-                {
-                    _fileAndFolderBrowserModel.ExpandedStates[folder.Path] = folder.IsExpanded;
-                }
-                else
-                {
-                    _fileAndFolderBrowserModel.ExpandedStates.Add(folder.Path, folder.IsExpanded);
-                }
+            if (FolderList == null || FolderList.Count == 0)
+                return;
 
-                if (_fileAndFolderBrowserModel.SelectedStates.ContainsKey(folder.Path))
-                {
-                    _fileAndFolderBrowserModel.SelectedStates[folder.Path] = folder.IsSelected;
-                }
-                else
-                {
-                    _fileAndFolderBrowserModel.SelectedStates.Add(folder.Path, folder.IsSelected);
-                }
-            }
+            _fileAndFolderBrowserModel.RefreshFolders(FolderList[0]);
+            //foreach (var folder in FolderList)
+            //{
+            //    if (_fileAndFolderBrowserModel.ExpandedStates.ContainsKey(folder.Path))
+            //    {
+            //        _fileAndFolderBrowserModel.ExpandedStates[folder.Path] = folder.IsExpanded;
+            //    }
+            //    else
+            //    {
+            //        _fileAndFolderBrowserModel.ExpandedStates.Add(folder.Path, folder.IsExpanded);
+            //    }
+
+            //    if (_fileAndFolderBrowserModel.SelectedStates.ContainsKey(folder.Path))
+            //    {
+            //        _fileAndFolderBrowserModel.SelectedStates[folder.Path] = folder.IsSelected;
+            //    }
+            //    else
+            //    {
+            //        _fileAndFolderBrowserModel.SelectedStates.Add(folder.Path, folder.IsSelected);
+            //    }
+            //}
             FolderList = new ObservableCollection<FligFolder>(_fileAndFolderBrowserModel.FolderList);
         }
 
@@ -100,7 +104,7 @@ namespace FligClient.FileBrowsing
         {
             _fileAndFolderBrowserModel = fileAndFolderBrowserModel;
 
-            RefreshFolders();
+            FolderList = new ObservableCollection<FligFolder>(_fileAndFolderBrowserModel.FolderList);
 
             FileList = new Collection<FligFile>();
         }
